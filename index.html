@@ -10,7 +10,7 @@
             --dark: #050505;
             --gray: #151515;
             --text-light: #ffffff;
-            --text-muted: #888888;
+            --text-muted: #aaaaaa;
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -24,7 +24,7 @@
         .container {
             max-width: 900px;
             margin: auto;
-            background-color: #111;
+            background-color: #0d0d0d;
             padding: 40px;
             border-radius: 20px;
             border: 1px solid var(--gray);
@@ -50,13 +50,15 @@
             transition: opacity 0.2s;
         }
         .lang-btn:hover { opacity: 0.8; }
-        h1 { color: var(--primary); font-size: 28px; margin-top: 0; }
-        h2 { color: #fff; margin-top: 40px; font-size: 20px; border-bottom: 1px dashed var(--gray); padding-bottom: 10px; }
-        p, li { font-size: 15px; color: #ccc; }
+        h1 { color: var(--primary); font-size: 26px; margin-top: 0; }
+        h2 { color: #ffffff; margin-top: 40px; font-size: 19px; border-bottom: 1px dashed var(--gray); padding-bottom: 10px; }
+        p, li { font-size: 15px; color: var(--text-muted); text-align: justify; }
+        ul { margin-bottom: 20px; }
+        li { margin-bottom: 8px; }
         .highlight {
-            background-color: rgba(222, 255, 154, 0.1);
+            background-color: rgba(222, 255, 154, 0.05);
             border-right: 4px solid var(--primary);
-            padding: 15px;
+            padding: 15px 20px;
             margin: 20px 0;
             border-radius: 8px;
         }
@@ -84,84 +86,127 @@
 
     <div class="container">
         <div class="header-top">
-            <h1 class="ar-content">سياسة الخصوصية وحماية البيانات</h1>
-            <h1 class="en-content">Privacy Policy & Data Protection</h1>
+            <h1 class="ar-content">سياسة الخصوصية الشاملة</h1>
+            <h1 class="en-content">Comprehensive Privacy Policy</h1>
             
             <button class="lang-btn" onclick="toggleLanguage()">
-                <span class="ar-content">English</span>
-                <span class="en-content">العربية</span>
+                <span class="ar-content">English Version</span>
+                <span class="en-content">النسخة العربية</span>
             </button>
         </div>
 
-        <!-- المحتوى العربي -->
+        <!-- ================= المحتوى العربي (11 بند) ================= -->
         <div class="ar-content">
             <p><strong>تاريخ النفاذ:</strong> سبتمبر 2026</p>
-            <p>نحن نولي أهمية قصوى لسرية وخصوصية البيانات الخاصة بالمستخدمين والتجار. تُبين هذه الوثيقة الشاملة كيفية جمعنا، واستخدامنا، وتخزيننا، وحمايتنا للمعلومات الشخصية والمالية وفقاً لأرقى المعايير التقنية والتشريعية.</p>
+            <p>نحن نولي أهمية قصوى لسرية وخصوصية البيانات الخاصة بالمستخدمين، التجار، والعمال الذين يديرون أنشطتهم عبر تطبيقنا. تُبين هذه الوثيقة الشاملة كيفية جمعنا، استخدامنا، معالجتنا، وتخزيننا للمعلومات وفقاً لأرقى المعايير التقنية.</p>
 
-            <h2>1. البيانات التي يتم جمعها</h2>
+            <h2>1. التمهيد ونطاق التطبيق</h2>
+            <p>ينطبق هذا البيان على كافة الخدمات، التطبيقات الذكية، وقواعد البيانات السحابية المرتبطة بالتطبيق. استخدامك للتطبيق يعني موافقتك الصريحة على هذه الممارسات.</p>
+
+            <h2>2. المسؤولية القانونية وحماية السرية التجارية</h2>
+            <p>ندرك حساسية البيانات المالية للأنشطة التجارية، ولذلك نلتزم التزاماً مطلقاً بعدم استغلال أرقام المبيعات والأرباح لأي غرض تجاري خارج نطاق تشغيل التطبيق وخدمة التاجر.</p>
+
+            <h2>3. فئات البيانات والمعلومات التي يتم جمعها</h2>
             <ul>
-                <li><strong>بيانات الحساب الأساسية:</strong> البريد الإلكتروني، كلمة المرور (مشفرة)، واسم النشاط التجاري.</li>
-                <li><strong>البيانات المالية والمحاسبية:</strong> إجمالي المبيعات، فواتير المشتريات، المصاريف التشغيلية، والضرائب المسجلة.</li>
-                <li><strong>بيانات الفروع:</strong> المواقع، وأسماء العمال المرتبطين بصلاحيات الإدخال الميداني.</li>
+                <li><strong>بيانات الحساب:</strong> البريد الإلكتروني، كلمة المرور المشفرة، واسم النشاط.</li>
+                <li><strong>هوية النشاط:</strong> الصور وشعارات العلامة التجارية (اللوجو) للتقارير.</li>
+                <li><strong>البيانات المالية:</strong> المبيعات، المشتريات، المصاريف التشغيلية، والضرائب.</li>
+                <li><strong>بيانات الفروع:</strong> أسماء الفروع وهويات العمال المرتبطين بصلاحيات الإدخال.</li>
+                <li><strong>بيانات الأجهزة:</strong> رموز إشعارات الدفع (Push Tokens) وأنظمة التشغيل.</li>
             </ul>
 
-            <h2>2. الأغراض التقنية لاستخدام البيانات</h2>
-            <p>تُستخدم البيانات للأغراض التشغيلية التالية:</p>
+            <h2>4. آليات جمع البيانات مصادرها</h2>
+            <p>تُجمع البيانات إما مباشرة من إدخالات المستخدم (التاجر أو العامل)، أو آلياً عبر السجلات التقنية (Logs) أثناء مزامنة العمليات المالية مع السيرفر.</p>
+
+            <h2>5. الأغراض التقنية والتشغيلية لاستخدام البيانات</h2>
             <ul>
-                <li>إصدار التقارير المالية والضريبية الدقيقة.</li>
-                <li>إرسال الإشعارات الفورية والتنبيهات الذكية للتاجر.</li>
-                <li>تحليل هوامش الربح والخسارة عبر خوارزميات النظام.</li>
+                <li>تشغيل الحسابات والتحقق من صلاحيات الدخول.</li>
+                <li>إصدار التقارير المالية الختامية وحساب هوامش الربح.</li>
+                <li>تفعيل منظومة الإشعارات الفورية والتنبيهات الذكية.</li>
+                <li>تطوير خوارزميات التحليل المالي والمقارنات الذكية.</li>
             </ul>
 
+            <h2>6. أمن البيانات التشفير والتخزين السحابي</h2>
             <div class="highlight">
-                <p><strong>أمن البيانات السحابية:</strong> تُخزن كافة القواعد والملفات على خوادم سحابية عالية الأمان ومحمية بجدار حماية (Row-Level Security)، مما يضمن عدم إمكانية وصول أي جهة أخرى لبياناتك نهائياً.</p>
+                <p><strong>معايير الأمان:</strong> تُخزن كافة البيانات على خوادم سحابية مشفرة بالكامل، مع تطبيق سياسات (Row-Level Security) تضمن عدم وصول أي جهة أخرى لبياناتك نهائياً. نستخدم بروتوكولات (HTTPS/SSL) لتشفير نقل البيانات.</p>
             </div>
 
-            <h2>3. مشاركة البيانات</h2>
-            <p>نحن لا نبيع أو نتاجر ببياناتك المالية تحت أي ظرف. لا يتم الإفصاح عن البيانات إلا في حالة الامتثال للطلبات القانونية الرسمية من الجهات المختصة.</p>
+            <h2>7. مشاركة البيانات والإفصاح عنها للغير</h2>
+            <p>لا يتم بيع أو مشاركة بياناتك أبداً. الإفصاح يقتصر فقط على الامتثال للطلبات القانونية الرسمية من الجهات التنظيمية والضريبية المختصة عند وجود إلزام قانوني، أو لحماية النظام من الاحتيال.</p>
 
-            <h2>4. حقوق المستخدم (حذف الحساب)</h2>
-            <p>يحق للمستخدم طلب حذف حسابه بالكامل. يتيح التطبيق خياراً تقنياً مباشراً لحذف الحساب وكافة السجلات والفروع المرتبطة به نهائياً بضغطة زر واحدة من خلال قسم "الإعدادات > منطقة الخطر"، مما يؤدي لمسح البيانات كلياً وفقاً لقواعد متاجر أبل وجوجل.</p>
+            <h2>8. حقوق المستخدم وإدارة البيانات الشخصية</h2>
+            <p>يحق للتاجر مراجعة، تعديل، أو <strong>حذف حسابه نهائياً</strong>. يتيح التطبيق خياراً مباشراً لحذف الحساب ومسح كافة السجلات والفروع المرتبطة به بضغطة زر من خلال (منطقة الخطر) في الإعدادات.</p>
+
+            <h2>9. سياسة الخصوصية الخاصة بالعمال</h2>
+            <p>التاجر (المالك) هو المسؤول الأول عن منح صلاحيات الدخول للعمال ومراقبتهم، مع التزام النظام بالتحقق من الهوية بدقة لمنع التلاعب.</p>
+
+            <h2>10. التعديلات والتحديثات</h2>
+            <p>يحق لنا تحديث هذه السياسة بما يتوافق مع المستجدات التقنية، وسيتم إشعار المستخدمين عبر تحديث تاريخ الإصدار أو التنبيهات الداخلية.</p>
+
+            <h2>11. تواصل معنا ودعم العملاء</h2>
+            <p>لأي استفسارات أو طلبات تخص البيانات، يمكنك التواصل معنا مباشرة من خلال "مركز المساعدة والدعم الفني" المتاح داخل التطبيق.</p>
         </div>
 
-        <!-- English Content -->
+        <!-- ================= English Content (11 Sections) ================= -->
         <div class="en-content">
             <p><strong>Effective Date:</strong> September 2026</p>
-            <p>We place the utmost importance on the confidentiality and privacy of our users' and merchants' data. This comprehensive document outlines how we collect, use, store, and protect personal and financial information in accordance with the highest technical and legislative standards.</p>
+            <p>We place the utmost importance on the confidentiality and privacy of the data of our users, merchants, and workers. This comprehensive document outlines how we collect, use, process, and store information in accordance with the highest technical standards.</p>
 
-            <h2>1. Information We Collect</h2>
+            <h2>1. Introduction and Scope</h2>
+            <p>This statement applies to all services, smart apps, and cloud databases associated with the application. By using the app, you explicitly agree to these practices.</p>
+
+            <h2>2. Legal Responsibility and Commercial Confidentiality</h2>
+            <p>We understand the sensitivity of commercial financial data. We are absolutely committed to never using sales figures or profits for any commercial purpose outside the scope of operating the app and serving the merchant.</p>
+
+            <h2>3. Categories of Data Collected</h2>
             <ul>
-                <li><strong>Basic Account Data:</strong> Email address, encrypted password, and business name.</li>
-                <li><strong>Financial & Accounting Data:</strong> Total sales, purchase invoices, operational expenses, and recorded taxes.</li>
-                <li><strong>Branch Data:</strong> Locations and names of workers associated with field data entry permissions.</li>
+                <li><strong>Account Data:</strong> Email, encrypted password, and business name.</li>
+                <li><strong>Business Identity:</strong> Images and logos for reporting purposes.</li>
+                <li><strong>Financial Data:</strong> Sales, purchases, operational expenses, and taxes.</li>
+                <li><strong>Branch Data:</strong> Branch names and identities of workers with entry permissions.</li>
+                <li><strong>Device Data:</strong> Push notification tokens and operating systems.</li>
             </ul>
 
-            <h2>2. Technical Purposes of Data Use</h2>
-            <p>Data is used strictly for the following operational purposes:</p>
+            <h2>4. Data Collection Mechanisms</h2>
+            <p>Data is collected either directly from user inputs (merchant or worker) or automatically via technical logs during the synchronization of financial operations with the server.</p>
+
+            <h2>5. Technical and Operational Purposes</h2>
             <ul>
-                <li>Issuing accurate financial and tax reports.</li>
-                <li>Sending push notifications and smart alerts to the merchant.</li>
-                <li>Analyzing profit and loss margins through system algorithms.</li>
+                <li>Operating accounts and verifying access permissions.</li>
+                <li>Issuing final financial reports and calculating profit margins.</li>
+                <li>Activating instant push notifications and smart alerts.</li>
+                <li>Developing financial analysis algorithms and smart comparisons.</li>
             </ul>
 
+            <h2>6. Data Security and Cloud Storage</h2>
             <div class="highlight">
-                <p><strong>Cloud Data Security:</strong> All databases and files are stored on highly secure cloud servers protected by Row-Level Security (RLS) firewalls, ensuring that no other party can ever access your data.</p>
+                <p><strong>Security Standards:</strong> All data is stored on fully encrypted cloud servers, applying Row-Level Security (RLS) policies to ensure no third party can access your data. We use HTTPS/SSL protocols for data transmission encryption.</p>
             </div>
 
-            <h2>3. Data Sharing</h2>
-            <p>We do not sell or trade your financial data under any circumstances. Data is only disclosed when legally required to comply with official requests from competent authorities.</p>
+            <h2>7. Data Sharing and Disclosure</h2>
+            <p>Your data is never sold or shared. Disclosure is strictly limited to complying with official legal requests from regulatory and tax authorities when legally required, or to protect the system from fraud.</p>
 
-            <h2>4. User Rights (Account Deletion)</h2>
-            <p>Users have the absolute right to delete their accounts. The app provides a direct technical option to permanently delete the account and all associated records and branches with a single click via the "Settings > Danger Zone" section, completely erasing data in compliance with Apple and Google store guidelines.</p>
+            <h2>8. User Rights and Data Management</h2>
+            <p>The merchant has the right to review, edit, or <strong>permanently delete their account</strong>. The app provides a direct option to delete the account and wipe all associated records and branches via the (Danger Zone) in the settings.</p>
+
+            <h2>9. Privacy Policy for Workers</h2>
+            <p>The merchant (owner) is primarily responsible for granting access permissions to workers and monitoring them, while the system is committed to strict identity verification to prevent tampering.</p>
+
+            <h2>10. Amendments and Updates</h2>
+            <p>We reserve the right to update this policy to align with technical developments. Users will be notified via the updated effective date or internal alerts.</p>
+
+            <h2>11. Contact Us and Customer Support</h2>
+            <p>For any inquiries or data requests, you can contact us directly through the "Help and Support Center" available within the app.</p>
         </div>
 
-        <!-- التذييل المشترك -->
+        <!-- ================= التذييل المشترك ================= -->
         <div class="footer">
             <span class="ar-content">نظام الإدارة المالية والمحاسبية المتقدم لتطبيق سلس</span>
             <span class="en-content">Advanced Financial and Accounting Management System for Salas App</span>
         </div>
     </div>
 
+    <!-- كود التبديل بين اللغات -->
     <script>
         function toggleLanguage() {
             const body = document.getElementById('body-tag');
