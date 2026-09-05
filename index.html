@@ -1,93 +1,182 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" id="html-tag">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سياسة الخصوصية والشروط والأحكام الشاملة - تطبيق الإدارة المالية والمحاسبية</title>
+    <title>Privacy Policy - سياسة الخصوصية | تطبيق سلس</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 2; color: #2c3e50; background: #fdfdfd; padding: 30px; max-width: 900px; margin: auto; }
-        h1 { color: #1a252f; border-bottom: 3px solid #deff9a; padding-bottom: 15px; font-size: 28px; }
-        h2 { color: #2c3e50; margin-top: 40px; font-size: 20px; border-right: 4px solid #1a252f; padding-right: 12px; }
-        p, li { font-size: 15px; color: #555; text-align: justify; }
-        ul { margin-bottom: 20px; }
-        li { margin-bottom: 8px; }
-        .container { background: #ffffff; padding: 40px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #eaeaea; }
-        .highlight { background: #f8f9fa; padding: 15px 20px; border-right: 4px solid #27ae60; margin: 15px 0; border-radius: 4px; }
-        .footer { text-align: center; margin-top: 50px; color: #888; font-size: 13px; border-top: 1px solid #eee; padding-top: 20px; }
+        :root {
+            --primary: #deff9a;
+            --dark: #050505;
+            --gray: #151515;
+            --text-light: #ffffff;
+            --text-muted: #888888;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark);
+            color: var(--text-light);
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background-color: #111;
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--gray);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--gray);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .lang-btn {
+            background-color: var(--primary);
+            color: var(--dark);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: inherit;
+            transition: opacity 0.2s;
+        }
+        .lang-btn:hover { opacity: 0.8; }
+        h1 { color: var(--primary); font-size: 28px; margin-top: 0; }
+        h2 { color: #fff; margin-top: 40px; font-size: 20px; border-bottom: 1px dashed var(--gray); padding-bottom: 10px; }
+        p, li { font-size: 15px; color: #ccc; }
+        .highlight {
+            background-color: rgba(222, 255, 154, 0.1);
+            border-right: 4px solid var(--primary);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        [dir="ltr"] .highlight {
+            border-right: none;
+            border-left: 4px solid var(--primary);
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: var(--primary);
+            font-size: 14px;
+            font-weight: bold;
+            border-top: 1px solid var(--gray);
+            padding-top: 20px;
+        }
+        
+        /* إخفاء وإظهار اللغات */
+        .en-content { display: none; }
+        [dir="ltr"] .ar-content { display: none; }
+        [dir="ltr"] .en-content { display: block; }
     </style>
 </head>
-<body>
+<body dir="rtl" id="body-tag">
+
     <div class="container">
-        <h1>سياسة الخصوصية وحماية البيانات الشخصية الشاملة</h1>
-        <p><strong>تاريخ النفاذ وسريان التحديث:</strong> سبتمبر 2026</p>
-        <p>نحن نولي أهمية قصوى لسرية وخصوصية البيانات الخاصة بالمستخدمين، التجار، والعمال الذين يديرون أنشطتهم التجارية عبر تطبيقنا المحاسبي والإداري. تُبين هذه الوثيقة الشاملة بكشف شفاف ودقيق كيفية جمعنا، استخدامنا، معالجتنا، تخزيننا، وحمايتنا للمعلومات الشخصية والمالية وفقاً لأرقى المعايير التقنية والتشريعية المعتمدة في قطاع تقنية المعلومات والأنظمة المالية الرقمية.</p>
-
-        <h2>1. التمهيد ونطاق التطبيق</h2>
-        <p>ينطبق هذا البيان والسياسة على كافة الخدمات الرقمية، التطبيقات الذكية، بوابات الإدارة، قواعد البيانات السحابية، وواجهات البرمجة المرتبطة بتطبيقنا الإداري والمحاسبي. باختيارك استخدام التطبيق أو إنشاء حساب إداري جديد، فإنك توافق ضمنياً وصراحة على الممارسات والشروط الواردة في هذه الوثيقة. في حال عدم موافقتك على أي بند من هذه السياسة، نرجو التوقف الفوري عن استخدام التطبيق.</p>
-
-        <h2>2. المسؤولية القانونية وحماية السرية التجارية</h2>
-        <p>ندرك تماماً حساسية البيانات المالية والمحاسبية للأنشطة التجارية (كالمتاجر، المطاعم، وفروعها المتعددة). ولذلك، فإننا نلتزم التزاماً مطلقاً بعدم استغلال البيانات التشغيلية أو أرقام المبيعات والأرباح لأي غرض تجاري تسويقي خارج نطاق تشغيل التطبيق وتحسين جودة الخدمة المقدمة للتاجر حصرياً.</p>
-
-        <h2>3. فئات البيانات والمعلومات التي يتم جمعها</h2>
-        <p>لضمان تقديم تجربة إدارة متكاملة وشاملة للفروع والمصاريف، نقوم بجمع الأنواع التالية من البيانات:</p>
-        <ul>
-            <li><strong>بيانات الحساب الأساسية:</strong> البريد الإلكتروني المعتمد لتسجيل الدخول، كلمة المرور (المشفرة كلياً باستخدام خوارزميات التشفير المعيارية)، واسم النشاط التجاري أو الكيان الإداري.</li>
-            <li><strong>هوية النشاط البصرية:</strong> الصور، الملفات المرئية، أو شعارات العلامة التجارية (اللوجو) التي يقوم التاجر برفعها لتخصيص التقارير المالية وملفات الـ PDF الصادرة عن التطبيق.</li>
-            <li><strong>البيانات المالية والمحاسبية:</strong> إجمالي المبيعات، فواتير المشتريات، بيانات المصاريف التشغيلية، تصنيفات الفواتير (مواد أولية، تعبئة وتغليف، مصاريف نثرية)، وحسابات الضرائب المضافة المسجلة بواسطة العمال أو المديرين المخولين.</li>
-            <li><strong>بيانات الفروع والصلاحيات:</strong> أسماء الفروع، المواقع الجغرافية المرتبطة، وأسماء أو هويات العمال المرتبطين بصلاحيات الإدخال الميداني اليومي.</li>
-            <li><strong>بيانات الأجهزة والاتصال:</strong> رموز إشعارات الدفع (Push Notification Tokens)، عنوان بروتوكول الإنترنت (IP Address)، نوع نظام التشغيل للجوال، وإصدار التطبيق المستخدم لضمان كفاءة التنبيهات الفورية وإرسال التقارير الصامتة في مواعيدها.</li>
-        </ul>
-
-        <h2>4. آليات جمع البيانات مصادرها</h2>
-        <p>يتم جمع المعلومات المذكورة أعلاه عبر طريقتين رئيسيتين:</p>
-        <ul>
-            <li><strong>البيانات المقدمة مباشرة من المستخدم:</strong> البيانات التي تُدخل عمداً عند إعداد الحساب، تعديل إعدادات الفرع، رفع صور الفواتير، أو تعبئة نماذج الدعم الفني.</li>
-            <li><strong>البيانات الآلية والتلقائية:</strong> السجلات التقنية (Logs) التي تُنشأ تلقائياً أثناء تفاعل التطبيق مع قواعد البيانات السحابية المركزية لضمان متابعة العمليات المالية لحظة بلحظة دون تأخير.</li>
-        </ul>
-
-        <h2>5. الأغراض التقنية والتشغيلية لاستخدام البيانات</h2>
-        <p>نستثمر البيانات التي يتم جمعها للأغراض التشغيلية البحتة التالية:</p>
-        <ul>
-            <li>تشغيل وإدارة الحسابات والتحقق من صلاحيات الدخول الخاصة بالمديرين والعمال بكل فرع على حدة.</li>
-            <li>إصدار التقارير المالية الختامية، استخراج ملفات الـ PDF الاحترافية، وحساب هوامش الربح والخسارة والضرائب بدقة متناهية.</li>
-            <li>تفعيل منظومة الإشعارات الفورية والتنبيهات الذكية لتنبيه التاجر عند إتمام أي عملية إدخال مالية هامة من قبل العمال في الفروع الميدانية.</li>
-            <li>تطوير خوارزميات التحليل المالي والمقارנות الذكية لمساعدة التاجر على اتخاذ قرارات إدارية واستثمارية سليمة.</li>
-            <li>تقديم الدعم الفني المخصص ومعالجة الشكاوى أو التذاكر الواردة من خلال نموذج التواصل داخل التطبيق.</li>
-        </ul>
-
-        <h2>6. أمن البيانات التشفير والتخزين السحابي</h2>
-        <div class="highlight">
-            <p><strong>معايير الأمان المتقدمة:</strong> تُخزن كافة قواعد البيانات والملفات والمستندات المرتبطة بنشاطك التجاري على خوادم سحابية مشفرة بالكامل وعالية الأمان (مدعومة ببنية Supabase التحتية)، مع تطبيق سياسات عزل صارمة لجدار الحماية (Row-Level Security - RLS) تضمن عدم إمكانية وصول أي مستثمر أو جهة أخرى لبيانات فرعك المالي نهائياً.</p>
+        <div class="header-top">
+            <h1 class="ar-content">سياسة الخصوصية وحماية البيانات</h1>
+            <h1 class="en-content">Privacy Policy & Data Protection</h1>
+            
+            <button class="lang-btn" onclick="toggleLanguage()">
+                <span class="ar-content">English</span>
+                <span class="en-content">العربية</span>
+            </button>
         </div>
-        <p>نستخدم أحدث بروتوكولات التشفير القياسية (HTTPS/SSL) أثناء نقل البيانات بين تطبيق الجوال والخوادم السحابية، بالإضافة إلى التشفير المتقدم لكلمات المرور والرموز السرية لضمان استحالة اعتراضها أو كشفها من أي طرف ثالث.</p>
 
-        <h2>7. مشاركة البيانات والإفصاح عنها للغير</h2>
-        <p>نؤكد التزامنا التام بمبدأ عدم بيع، تأجير، أو المتاجرة ببياناتك المالية أو التجارية تحت أي ظرف. لا يتم الإفصاح عن أي معلومات شخصية أو مالية إلا في الحالات الاستثنائية التالية:</p>
-        <ul>
-            <li><strong>الامتثال القانوني والتشريعي:</strong> الاستجابة الفورية للطلبات الرسمية المشروعة الصادرة عن الجهات القضائية أو الهيئات التنظيمية والزكوية والضريبية المختصة في المملكة العربية السعودية عند وجود إلزام قانوني صريح.</li>
-            <li><strong>حماية الحقوق والأمان:</strong> حماية حقوق الملكية الفكرية للتطبيق، منع عمليات الاحتيال المالي، أو التصدي لأي تهديدات أمنية تستظلم سلامة النظام أو المستخدمين.</li>
-        </ul>
+        <!-- المحتوى العربي -->
+        <div class="ar-content">
+            <p><strong>تاريخ النفاذ:</strong> سبتمبر 2026</p>
+            <p>نحن نولي أهمية قصوى لسرية وخصوصية البيانات الخاصة بالمستخدمين والتجار. تُبين هذه الوثيقة الشاملة كيفية جمعنا، واستخدامنا، وتخزيننا، وحمايتنا للمعلومات الشخصية والمالية وفقاً لأرقى المعايير التقنية والتشريعية.</p>
 
-        <h2>8. حقوق المستخدم وإدارة البيانات الشخصية</h2>
-        <p>يتمتع كل مستخدم بحقوق كاملة وغير قابلة للتنازل تجاه بياناته الخاصة، وتشمل:</p>
-        <ul>
-            <li><strong>حق الوصول والاطلاع:</strong> يحق للتاجر مراجعة كافة بياناته المالية، سجلات الفروع، وصور الفواتير المخزنة في أي وقت.</li>
-            <li><strong>حق التعديل والتحديث:</strong> إمكانية تعديل بيانات الحساب الشخصي، شعار النشاط، أو كلمات المرور مباشرة عبر إعدادات التطبيق.</li>
-            <li><strong>حق الحذف الشامل والنهائي (Account Deletion):</strong> يتيح التطبيق خياراً تقنياً مباشراً وآمناً لحذف الحساب وكافة السجلات والفروع المرتبطة به نهائياً من قاعدة البيانات السحابية بضغطة زر واحدة من خلال قسم "منطقة الخطر" في إعدادات التطبيق، مما يؤدي لمسح البيانات كلياً وفقاً لشروط وقواعد متاجر التطبيقات.</li>
-        </ul>
+            <h2>1. البيانات التي يتم جمعها</h2>
+            <ul>
+                <li><strong>بيانات الحساب الأساسية:</strong> البريد الإلكتروني، كلمة المرور (مشفرة)، واسم النشاط التجاري.</li>
+                <li><strong>البيانات المالية والمحاسبية:</strong> إجمالي المبيعات، فواتير المشتريات، المصاريف التشغيلية، والضرائب المسجلة.</li>
+                <li><strong>بيانات الفروع:</strong> المواقع، وأسماء العمال المرتبطين بصلاحيات الإدخال الميداني.</li>
+            </ul>
 
-        <h2>9. سياسة الخصوصية الخاصة بالعمال والمستخدمين الفرعيين</h2>
-        <p>في حال قيام التاجر (المالك الرئيسي) بمنح صلاحيات الدخول للعمال عبر حسابات أو أكواد مخصصة لتسجيل المشتريات والمبيعات اليومية، فإن التاجر يُعتبر المسؤول الأول والأخير عن إدارة وتوجيه هؤلاء العمال ومراقبة نطاق صلاحياتهم، مع التزام النظام بتطبيق الصلاحيات الأمنية والتحقق من الهوية بدقة لمنع التلاعب.</p>
+            <h2>2. الأغراض التقنية لاستخدام البيانات</h2>
+            <p>تُستخدم البيانات للأغراض التشغيلية التالية:</p>
+            <ul>
+                <li>إصدار التقارير المالية والضريبية الدقيقة.</li>
+                <li>إرسال الإشعارات الفورية والتنبيهات الذكية للتاجر.</li>
+                <li>تحليل هوامش الربح والخسارة عبر خوارزميات النظام.</li>
+            </ul>
 
-        <h2>10. التعديلات والتحديثات على سياسة الخصوصية</h2>
-        <p>يحق لنا تعديل أو تحديث هذه السياسة من حين لآخر بما يتوافق مع المستجدات التقنية والتنظيمية والقانونية. سيتم إشعار المستخدمين بأي جوهريات عبر تحديث تاريخ الإصدار أعلى هذه الوثيقة أو من خلال التنبيهات الداخلية داخل التطبيق، ويُعتبر استمرار استخدامك للخدمة بعد هذه التعديلات إقراراً وموافقة صريحة عليها.</p>
+            <div class="highlight">
+                <p><strong>أمن البيانات السحابية:</strong> تُخزن كافة القواعد والملفات على خوادم سحابية عالية الأمان ومحمية بجدار حماية (Row-Level Security)، مما يضمن عدم إمكانية وصول أي جهة أخرى لبياناتك نهائياً.</p>
+            </div>
 
-        <h2>11. تواصل معنا ودعم العملاء</h2>
-        <p>إذا كانت لديك أي استفسارات، ملاحظات، أو طلبات تتعلق ببنود سياسة الخصوصية وحماية البيانات، يمكنك التواصل معنا مباشرة من خلال مركز المساعدة والدعم الفني المتاح داخل واجهات التطبيق، أو عبر قنوات الاتصال الرسمية المعتمدة.</p>
+            <h2>3. مشاركة البيانات</h2>
+            <p>نحن لا نبيع أو نتاجر ببياناتك المالية تحت أي ظرف. لا يتم الإفصاح عن البيانات إلا في حالة الامتثال للطلبات القانونية الرسمية من الجهات المختصة.</p>
 
+            <h2>4. حقوق المستخدم (حذف الحساب)</h2>
+            <p>يحق للمستخدم طلب حذف حسابه بالكامل. يتيح التطبيق خياراً تقنياً مباشراً لحذف الحساب وكافة السجلات والفروع المرتبطة به نهائياً بضغطة زر واحدة من خلال قسم "الإعدادات > منطقة الخطر"، مما يؤدي لمسح البيانات كلياً وفقاً لقواعد متاجر أبل وجوجل.</p>
+        </div>
+
+        <!-- English Content -->
+        <div class="en-content">
+            <p><strong>Effective Date:</strong> September 2026</p>
+            <p>We place the utmost importance on the confidentiality and privacy of our users' and merchants' data. This comprehensive document outlines how we collect, use, store, and protect personal and financial information in accordance with the highest technical and legislative standards.</p>
+
+            <h2>1. Information We Collect</h2>
+            <ul>
+                <li><strong>Basic Account Data:</strong> Email address, encrypted password, and business name.</li>
+                <li><strong>Financial & Accounting Data:</strong> Total sales, purchase invoices, operational expenses, and recorded taxes.</li>
+                <li><strong>Branch Data:</strong> Locations and names of workers associated with field data entry permissions.</li>
+            </ul>
+
+            <h2>2. Technical Purposes of Data Use</h2>
+            <p>Data is used strictly for the following operational purposes:</p>
+            <ul>
+                <li>Issuing accurate financial and tax reports.</li>
+                <li>Sending push notifications and smart alerts to the merchant.</li>
+                <li>Analyzing profit and loss margins through system algorithms.</li>
+            </ul>
+
+            <div class="highlight">
+                <p><strong>Cloud Data Security:</strong> All databases and files are stored on highly secure cloud servers protected by Row-Level Security (RLS) firewalls, ensuring that no other party can ever access your data.</p>
+            </div>
+
+            <h2>3. Data Sharing</h2>
+            <p>We do not sell or trade your financial data under any circumstances. Data is only disclosed when legally required to comply with official requests from competent authorities.</p>
+
+            <h2>4. User Rights (Account Deletion)</h2>
+            <p>Users have the absolute right to delete their accounts. The app provides a direct technical option to permanently delete the account and all associated records and branches with a single click via the "Settings > Danger Zone" section, completely erasing data in compliance with Apple and Google store guidelines.</p>
+        </div>
+
+        <!-- التذييل المشترك -->
         <div class="footer">
-            <p>جميع حقوق الطبع والنشر محفوظة © 2026 - نظام الإدارة المالية والمحاسبية المتقدم.</p>
+            <span class="ar-content">نظام الإدارة المالية والمحاسبية المتقدم لتطبيق سلس</span>
+            <span class="en-content">Advanced Financial and Accounting Management System for Salas App</span>
         </div>
     </div>
+
+    <script>
+        function toggleLanguage() {
+            const body = document.getElementById('body-tag');
+            const html = document.getElementById('html-tag');
+            
+            if (body.getAttribute('dir') === 'rtl') {
+                // تحويل إلى الإنجليزية
+                body.setAttribute('dir', 'ltr');
+                html.setAttribute('lang', 'en');
+            } else {
+                // تحويل إلى العربية
+                body.setAttribute('dir', 'rtl');
+                html.setAttribute('lang', 'ar');
+            }
+        }
+    </script>
 </body>
 </html>
