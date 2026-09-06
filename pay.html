@@ -57,7 +57,7 @@
     </div>
 
     <script>
-        // قراءة عدد الفروع من الرابط القادم من التطبيق (مثال: pay.html?branches=2)
+        // قراءة عدد الفروع من الرابط القادم من التطبيق
         const urlParams = new URLSearchParams(window.location.search);
         const branchesCount = parseInt(urlParams.get('branches')) || 1;
         
@@ -70,7 +70,7 @@
         document.getElementById('plan-description').innerText = 
             `ترقية عدد (${branchesCount} فروع) - الإجمالي: ${totalInSAR} ر.س (شامل الضريبة)`;
 
-        // تشغيل بوابة ميسر بالمبلغ المحدث
+        // تشغيل بوابة ميسر بالمبلغ المحدث وإظهار حقول البطاقات بشكل مباشر
         Moyasar.init({
             element: '.mysr-form',
             amount: totalAmount, 
@@ -78,7 +78,7 @@
             description: `اشتراك تطبيق سلس - ${branchesCount} فروع`,
             publishable_api_key: 'pk_test_QJCHKrp3H7U1PpeAZCnxgFTYbZ6zQrMd6kPRd63S',
             callback_url: 'https://saleh727.github.io/SALAS/success.html', 
-            methods: ['creditcard', 'applepay', 'stcpay']
+            methods: ['creditcard', 'stcpay']
         });
     </script>
 
