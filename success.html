@@ -54,7 +54,7 @@
         <h2>تمت عملية الدفع بنجاح!</h2>
         <p id="status-text">جاري التحقق من عملية الدفع وتحديث رصيد فروعك في قاعدة البيانات...</p>
         
-        <a href="salas://" id="return-btn" class="btn" style="display: none;">العودة لتطبيق سلس 🚀</a>
+        <a href="salasnew://" id="return-btn" class="btn" style="display: none;">العودة لتطبيق سلس 🚀</a>
     </div>
 
     <script>
@@ -71,16 +71,20 @@
 
             if (paymentId) {
                 try {
-                    // يمكنك هنا حفظ بيانات الاشتراك أو تحديث حالة المستخدم في سوبابيس إذا كان مسجلاً للدخول عبر الويب،
-                    // أو الاعتماد على Webhook للسيرفر. للربط المباشر السريع:
                     console.log("Payment ID verified:", paymentId);
 
                     statusText.innerHTML = "تم توثيق الدفع بنجاح عبر مُيسّر وتم تحديث نظامك المالي واشتراكك بنجاح! 🌟";
                     returnBtn.style.display = 'inline-block';
                     
+                    // العودة للتطبيق بالـ Scheme الخاص بمشروعك
+                    returnBtn.onclick = (e) => {
+                        e.preventDefault();
+                        window.location.href = "salasnew://"; 
+                    };
+
                 } catch (err) {
                     console.error("Database update error:", err);
-                    statusText.innerText = "تم الدفع بنجاح، ولكن حدث خطأ بسيوني أثناء المزامنة. يرجى العودة للتطبيق.";
+                    statusText.innerText = "تم الدفع بنجاح، ولكن حدث خطأ بسيط أثناء المزامنة. يرجى العودة للتطبيق.";
                     returnBtn.style.display = 'inline-block';
                 }
             } else {
