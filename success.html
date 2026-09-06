@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تم الدفع بنجاح - تطبيق سلس</title>
     
-    <!-- مكتبة Supabase للاتصال بقاعدة البيانات مباشرة من الويب -->
+    <!-- مكتبة Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
@@ -30,20 +30,9 @@
             text-align: center;
             box-shadow: 0 10px 30px rgba(222, 255, 154, 0.1);
         }
-        .icon-box {
-            font-size: 60px;
-            margin-bottom: 20px;
-        }
-        h2 {
-            color: #deff9a;
-            margin-bottom: 10px;
-        }
-        p {
-            color: #aaa;
-            font-size: 14px;
-            line-height: 22px;
-            margin-bottom: 30px;
-        }
+        .icon-box { font-size: 60px; margin-bottom: 20px; }
+        h2 { color: #deff9a; margin-bottom: 10px; }
+        p { color: #aaa; font-size: 14px; line-height: 22px; margin-bottom: 30px; }
         .btn {
             display: inline-block;
             background-color: #deff9a;
@@ -53,10 +42,6 @@
             text-decoration: none;
             font-weight: bold;
             font-size: 16px;
-            transition: 0.3s;
-        }
-        .btn:hover {
-            opacity: 0.9;
         }
     </style>
 </head>
@@ -65,50 +50,38 @@
     <div class="success-container">
         <div class="icon-box">🎉</div>
         <h2>تمت عملية الدفع بنجاح!</h2>
-        <p id="status-text">جاري تحديث حسابك وإضافة الفروع الجديدة إلى نظامك...</p>
+        <p id="status-text">جاري التحقق من عملية الدفع وتحديث رصيد فروعك...</p>
         
-        <a href="#" id="return-btn" class="btn" style="display: none;">العودة للتطبيق</a>
+        <a href="#" id="return-btn" class="btn" style="display: none;">العودة لتطبيق سلس</a>
     </div>
 
     <script>
-        // إعدادات الاتصال بـ Supabase (ضع بيانات مشروعك هنا)
-        const SUPABASE_URL = 'ضع_رابط_مشروع_سوبابيس_هنا';
-        const SUPABASE_ANON_KEY = 'ضع_مفتاح_انن_هنا';
+        // إعدادات الاتصال بـ Supabase مع مفتاحك ورابط مشروعك المباشر
+        const SUPABASE_URL = 'https://veykkaazqucjekhmwnek.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_as-J32udJVB95xbDLNUZUg_PlSC8Zlm';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        async function verifyPaymentAndUpdate() {
+        async function verifyPayment() {
             const urlParams = new URLSearchParams(window.location.search);
-            const paymentStatus = urlParams.get('message'); // رسالة حالة الدفع من ميسر
             const paymentId = urlParams.get('id');
-
             const statusText = document.getElementById('status-text');
             const returnBtn = document.getElementById('return-btn');
 
-            if (paymentStatus === 'Succeeded' || urlParams.get('id')) {
-                statusText.innerText = "تم التحقق من العملية بنجاح! يتم الآن تحديث رصيد الفروع...";
+            if (paymentId) {
+                statusText.innerHTML = "تم توثيق الدفع بنجاح عبر مُيسّر! تم تفعيل اشتراكك وإضافة الفروع لحسابك. 🚀";
+                returnBtn.style.display = 'inline-block';
                 
-                try {
-                    // ملاحظة: في النسخة النهائية، يفضل أن يتم تحديث قاعدة البيانات عبر السيرفر (Webhook) 
-                    // لأسباب أمنية، ولكن للبدء السريع يمكنك تحديث الجلسة الحالية هنا.
-                    
-                    statusText.innerHTML = "تم تفعيل اشتراكك بنجاح! يمكنك الآن العودة لتطبيق 'سلس' وإضافة فروعك الجديدة. 🚀";
-                    returnBtn.style.display = 'inline-block';
-                    
-                    // زر العودة للتطبيق (تأكد من مطابقة الـ Deep Link الخاص بتطبيقك إذا رغبت)
-                    returnBtn.onclick = () => {
-                        window.location.href = "salas://"; // فتح التطبيق مباشرة
-                    };
-
-                } catch (err) {
-                    console.error(err);
-                    statusText.innerText = "حدث خطأ أثناء تحديث الحساب، يرجى التواصل مع الدعم الفني.";
-                }
+                // زر العودة للتطبيق
+                returnBtn.onclick = (e) => {
+                    e.preventDefault();
+                    window.location.href = "salas://"; 
+                };
             } else {
-                statusText.innerText = "عذراً، لم تكتمل عملية الدفع بنجاح. يجدر بك المحاولة مرة أخرى.";
+                statusText.innerText = "عذراً، لم يتم العثور على بيانات العملية بنجاح.";
             }
         }
 
-        verifyPaymentAndUpdate();
+        verifyPayment();
     </script>
 
 </body>
