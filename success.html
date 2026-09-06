@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تم الدفع بنجاح - تطبيق سلس</title>
+    
+    <!-- مكتبة Supabase للاتصال بقاعدة البيانات مباشرة من الويب -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #050505;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .success-container {
+            background-color: #111;
+            padding: 40px 30px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 450px;
+            border: 1px solid #222;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(222, 255, 154, 0.1);
+        }
+        .icon-box {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #deff9a;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #aaa;
+            font-size: 14px;
+            line-height: 22px;
+            margin-bottom: 30px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #deff9a;
+            color: #000;
+            padding: 15px 30px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="success-container">
+        <div class="icon-box">🎉</div>
+        <h2>تمت عملية الدفع بنجاح!</h2>
+        <p id="status-text">جاري تحديث حسابك وإضافة الفروع الجديدة إلى نظامك...</p>
+        
+        <a href="#" id="return-btn" class="btn" style="display: none;">العودة للتطبيق</a>
+    </div>
+
+    <script>
+        // إعدادات الاتصال بـ Supabase (ضع بيانات مشروعك هنا)
+        const SUPABASE_URL = 'ضع_رابط_مشروع_سوبابيس_هنا';
+        const SUPABASE_ANON_KEY = 'ضع_مفتاح_انن_هنا';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function verifyPaymentAndUpdate() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const paymentStatus = urlParams.get('message'); // رسالة حالة الدفع من ميسر
+            const paymentId = urlParams.get('id');
+
+            const statusText = document.getElementById('status-text');
+            const returnBtn = document.getElementById('return-btn');
+
+            if (paymentStatus === 'Succeeded' || urlParams.get('id')) {
+                statusText.innerText = "تم التحقق من العملية بنجاح! يتم الآن تحديث رصيد الفروع...";
+                
+                try {
+                    // ملاحظة: في النسخة النهائية، يفضل أن يتم تحديث قاعدة البيانات عبر السيرفر (Webhook) 
+                    // لأسباب أمنية، ولكن للبدء السريع يمكنك تحديث الجلسة الحالية هنا.
+                    
+                    statusText.innerHTML = "تم تفعيل اشتراكك بنجاح! يمكنك الآن العودة لتطبيق 'سلس' وإضافة فروعك الجديدة. 🚀";
+                    returnBtn.style.display = 'inline-block';
+                    
+                    // زر العودة للتطبيق (تأكد من مطابقة الـ Deep Link الخاص بتطبيقك إذا رغبت)
+                    returnBtn.onclick = () => {
+                        window.location.href = "salas://"; // فتح التطبيق مباشرة
+                    };
+
+                } catch (err) {
+                    console.error(err);
+                    statusText.innerText = "حدث خطأ أثناء تحديث الحساب، يرجى التواصل مع الدعم الفني.";
+                }
+            } else {
+                statusText.innerText = "عذراً، لم تكتمل عملية الدفع بنجاح. يجدر بك المحاولة مرة أخرى.";
+            }
+        }
+
+        verifyPaymentAndUpdate();
+    </script>
+
+</body>
+</html>
