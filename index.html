@@ -18,25 +18,30 @@
         body {
             background-color: #050505;
             color: #fff;
-            display: flex;
             min-height: 100vh;
-        }
-
-        /* --- القائمة الجانبية (يمين) --- */
-        .sidebar {
-            width: 280px;
-            background-color: #0d0d0d;
-            border-left: 1px solid #1a1a1a;
-            padding: 30px 20px;
             display: flex;
             flex-direction: column;
         }
+
+        /* --- الشريط العلوي (الناف بار) --- */
+        .navbar {
+            background-color: #0d0d0d;
+            border-bottom: 1px solid #1a1a1a;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
         .logo-container {
-            text-align: center;
-            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         .logo {
-            font-size: 32px;
+            font-size: 26px;
             font-weight: 900;
             color: #deff9a;
             letter-spacing: 1px;
@@ -44,50 +49,89 @@
         .logo-sub {
             color: #666;
             font-size: 13px;
-        }
-        
-        .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 15px 18px;
-            color: #888;
-            text-decoration: none;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 15px;
-            font-weight: 600;
-        }
-        .menu-item:hover {
-            background-color: #111;
-            color: #fff;
-        }
-        .menu-item.active {
-            background-color: #deff9a;
-            color: #000;
-        }
-        .menu-item i {
-            font-size: 18px;
+            border-right: 1px solid #333;
+            padding-right: 10px;
         }
 
-        /* --- محتوى الصفحة (يسار) --- */
+        /* --- القائمة المنسدلة --- */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropbtn {
+            background-color: #111;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 15px;
+            font-weight: 600;
+            border: 1px solid #222;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s;
+        }
+        .dropbtn:hover {
+            border-color: #deff9a;
+            color: #deff9a;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #0d0d0d;
+            min-width: 220px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.8);
+            border: 1px solid #222;
+            border-radius: 12px;
+            overflow: hidden;
+            z-index: 1;
+            top: 110%;
+        }
+        .dropdown-content.show {
+            display: block;
+            animation: slideDown 0.2s ease-out;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .dropdown-content a {
+            color: #ccc;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            transition: 0.2s;
+            border-bottom: 1px solid #151515;
+        }
+        .dropdown-content a:hover {
+            background-color: #1a1a1a;
+            color: #deff9a;
+        }
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        /* --- محتوى الصفحة --- */
         .main-content {
             flex: 1;
-            padding: 40px;
-            overflow-y: auto;
+            padding: 40px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
         }
         .section-container {
-            display: none; /* يتم إخفاء الأقسام وتفعيلها بالجافاسكربت */
-            max-width: 800px;
-            margin: 0 auto;
+            display: none; 
             animation: fadeIn 0.4s ease-in-out;
         }
         .section-container.active {
             display: block;
         }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -96,9 +140,7 @@
         .page-title {
             font-size: 26px;
             color: #fff;
-            margin-bottom: 25px;
-            border-bottom: 1px solid #1a1a1a;
-            padding-bottom: 15px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -106,70 +148,85 @@
         .page-title i {
             color: #deff9a;
         }
+        .page-desc {
+            color: #888;
+            font-size: 15px;
+            margin-bottom: 30px;
+            line-height: 1.8;
+            border-bottom: 1px solid #1a1a1a;
+            padding-bottom: 20px;
+        }
 
-        /* تنسيقات البطاقات داخل المحتوى */
+        /* تنسيقات البطاقات */
         .card {
             background: #111;
             border: 1px solid #1a1a1a;
             border-radius: 16px;
-            padding: 25px;
+            padding: 20px;
             margin-bottom: 15px;
+            transition: 0.2s;
+        }
+        .card:hover {
+            border-color: #333;
         }
         .card h3 {
             color: #deff9a;
-            font-size: 18px;
-            margin-bottom: 10px;
+            font-size: 17px;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
         .card p {
             color: #bbb;
-            font-size: 15px;
+            font-size: 14px;
             line-height: 1.8;
         }
 
-        /* التجاوب مع الجوال */
-        @media (max-width: 768px) {
-            body {
-                flex-direction: column;
+        /* شبكة لعرض المحركات بشكل أجمل في الشاشات الكبيرة */
+        .engines-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        @media (min-width: 768px) {
+            .engines-grid {
+                grid-template-columns: 1fr 1fr;
             }
-            .sidebar {
-                width: 100%;
-                border-left: none;
-                border-bottom: 1px solid #1a1a1a;
-                padding: 20px;
-            }
-            .logo-container {
-                margin-bottom: 20px;
-            }
-            .main-content {
-                padding: 20px;
-            }
+        }
+        @media (max-width: 600px) {
+            .navbar { padding: 15px; }
+            .logo-sub { display: none; }
+            .main-content { padding: 20px 15px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- القائمة الجانبية (يمين) -->
-    <aside class="sidebar">
+    <!-- الشريط العلوي والقائمة المنسدلة -->
+    <nav class="navbar">
         <div class="logo-container">
             <div class="logo">SELS</div>
             <div class="logo-sub">إدارة مالية ذكية</div>
         </div>
-
-        <!-- أزرار التنقل -->
-        <div class="menu-item active" onclick="switchTab('privacy', this)">
-            <i class="fa-solid fa-shield-halved"></i>
-            سياسة الخصوصية
+        
+        <div class="dropdown">
+            <button class="dropbtn" onclick="toggleDropdown()">
+                <span id="dropdown-title">تصفح الدليل</span> 
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="dropdown-content" id="myDropdown">
+                <a href="#" onclick="switchTab('privacy', 'سياسة الخصوصية')">
+                    <i class="fa-solid fa-shield-halved"></i> سياسة الخصوصية
+                </a>
+                <a href="#" onclick="switchTab('cfo', 'دليل الذكاء المالي')">
+                    <i class="fa-solid fa-brain"></i> دليل الذكاء المالي (20 محرك)
+                </a>
+            </div>
         </div>
-        <div class="menu-item" onclick="switchTab('cfo', this)">
-            <i class="fa-solid fa-brain"></i>
-            دليل الذكاء المالي
-        </div>
-    </aside>
+    </nav>
 
-    <!-- المحتوى الرئيسي (يسار) -->
+    <!-- المحتوى الرئيسي -->
     <main class="main-content">
         
         <!-- ============================================== -->
@@ -177,85 +234,167 @@
         <!-- ============================================== -->
         <div id="privacy" class="section-container active">
             <h1 class="page-title"><i class="fa-solid fa-file-contract"></i> سياسة الخصوصية والاستخدام</h1>
+            <p class="page-desc">التزامنا التام بحماية سرية بياناتك المالية والتجارية.</p>
             
-            <div class="card">
-                <h3><i class="fa-solid fa-lock"></i> حماية وسرية البيانات</h3>
-                <p>
-                    في تطبيق "سلس"، نعتبر بياناتك المالية والتجارية سراً من أسرار عملك. نلتزم بحماية كافة البيانات المُدخلة من مبيعات ومشتريات ومصروفات باستخدام أحدث تقنيات التشفير، ولا يتم مشاركة أي معلومات أو أرقام مع أي طرف ثالث لأي غرض تسويقي أو غيره.
-                </p>
-            </div>
-
-            <div class="card">
-                <h3><i class="fa-solid fa-server"></i> تخزين البيانات</h3>
-                <p>
-                    تُحفظ البيانات في خوادم سحابية آمنة ومحمية. يُسمح لك بالوصول لبياناتك في أي وقت، وبصفتك صاحب الحساب (المالك)، تمتلك الصلاحية الكاملة لحذف فروعك أو تعديل بياناتها، وستُحذف فوراً من قواعد بياناتنا بشكل نهائي عند طلبك.
-                </p>
-            </div>
-
-            <div class="card">
-                <h3><i class="fa-solid fa-robot"></i> التحليلات والذكاء الاصطناعي</h3>
-                <p>
-                    نظام الذكاء المالي وتوليد التقارير يعمل تلقائياً داخل النظام لمعالجة الأرقام وتقديم التوصيات لك فقط. لا يتدخل أي عنصر بشري في قراءة تقاريرك، مما يضمن لك خصوصية تامة كمشترك في التطبيق.
-                </p>
+            <div class="engines-grid">
+                <div class="card">
+                    <h3><i class="fa-solid fa-lock"></i> حماية وسرية البيانات</h3>
+                    <p>في تطبيق "سلس"، نعتبر بياناتك المالية والتجارية سراً من أسرار عملك. نلتزم بحماية كافة البيانات المُدخلة باستخدام أحدث تقنيات التشفير، ولا يتم مشاركة أي معلومات مع أي طرف ثالث لأي غرض تسويقي.</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fa-solid fa-server"></i> تخزين البيانات والملكية</h3>
+                    <p>تُحفظ البيانات في خوادم سحابية آمنة ومحمية. بصفتك صاحب الحساب (المالك)، تمتلك الصلاحية الكاملة لحذف فروعك أو تعديل بياناتها، وستُحذف فوراً من قواعد بياناتنا بشكل نهائي عند طلبك.</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fa-solid fa-robot"></i> التحليلات والذكاء الاصطناعي</h3>
+                    <p>نظام الذكاء المالي وتوليد التقارير يعمل تلقائياً برمجياً داخل النظام لمعالجة الأرقام وتقديم التوصيات لك فقط. لا يتدخل أي عنصر بشري في قراءة تقاريرك، مما يضمن لك خصوصية تامة.</p>
+                </div>
             </div>
         </div>
 
-
         <!-- ============================================== -->
-        <!-- 2. قسم دليل الذكاء المالي (CFO) -->
+        <!-- 2. قسم دليل الذكاء المالي (CFO) بـ 20 محرك -->
         <!-- ============================================== -->
         <div id="cfo" class="section-container">
             <h1 class="page-title"><i class="fa-solid fa-brain"></i> دليل محركات الذكاء المالي</h1>
+            <p class="page-desc">
+                يعمل تطبيق "سلس" كمدير مالي آلي (CFO) في جيبك، حيث يعالج الأرقام عبر 20 محركاً تحليلياً متقدماً لتحويل مدخلاتك إلى قرارات ذكية واستباقية تحمي مشروعك من المخاطر.
+            </p>
             
-            <div class="card" style="background: rgba(222, 255, 154, 0.05); border-color: rgba(222, 255, 154, 0.15);">
-                <p style="color: #fff;">
-                    يقوم تطبيق "سلس" بدمج أكثر من 20 محركاً تحليلياً متقدماً لترجمة أرقام مبيعاتك ومشترياتك ومصاريفك إلى رؤى وتنبيهات استباقية تحمي مشروعك وتضاعف أرباحك، لتكون بمثابة مدير مالي (CFO) في جيبك.
-                </p>
-            </div>
+            <div class="engines-grid">
+                
+                <div class="card">
+                    <h3>1. محرك سيولة العجز المالي</h3>
+                    <p>يراقب صافي الربح النهائي بعد استبعاد التكاليف، ويطلق تحذيراً عاجلاً بوجود عجز في التدفقات النقدية للشهر الحالي لتدارك الأمر قبل تراكم الالتزامات.</p>
+                </div>
 
-            <div class="card">
-                <h3><i class="fa-solid fa-wallet"></i> 1. محركات السيولة والأمان المالي</h3>
-                <p>يراقب النظام أرباحك الصافية لحظياً، ويطلق تنبيهات مبكرة عند رصد أي عجز نقدي، مع حساب نقطة التعادل بدقة وهامش الأمان الذي يبعدك عن خط الخسارة.</p>
-            </div>
+                <div class="card">
+                    <h3>2. محرك كفاءة التسعير وهامش الربح</h3>
+                    <p>يقيّم نسبة ما يتبقى كصافي ربح حقيقي من كل ريال يتم تحقيقه، ليصنف أداء التسعير إلى مستويات (ممتاز، مستقر، أو هش) لمساعدتك في ضبط الأسعار.</p>
+                </div>
 
-            <div class="card">
-                <h3><i class="fa-solid fa-chart-line"></i> 2. محركات كفاءة التسعير والأرباح</h3>
-                <p>يحلل النظام كفاءة تسعير منتجاتك وجباتك عبر قياس هامش الربح الصافي، ويكشف أي خلل جذري قد يجعل تكلفة البضاعة تبتلع إيراداتك.</p>
-            </div>
+                <div class="card">
+                    <h3>3. محرك نقطة التعادل</h3>
+                    <p>يحدد "خط الصفر" المالي بدقة (حجم المبيعات المطلوبة لتغطية كافة التكاليف دون خسارة)، ليخبرك بالمبلغ المتبقي للوصول إلى نقطة الأمان.</p>
+                </div>
 
-            <div class="card">
-                <h3><i class="fa-solid fa-pie-chart"></i> 3. محركات إدارة المصاريف والعبء التشغيلي</h3>
-                <p>يقيّم النظام مدى ضغط المصاريف الثابتة (الإيجارات والرواتب) على إيرادات الفرع، ويراقب تكاليف المشتريات ومواد التشغيل لمنع الهدر الصامت.</p>
-            </div>
+                <div class="card">
+                    <h3>4. محرك هامش الأمان</h3>
+                    <p>يقيس بنسبة مئوية مدى بُعد مبيعاتك الحالية عن نقطة الخسارة. كلما ارتفعت النسبة، زادت مناعة مشروعك ضد أي تراجع مفاجئ في حركة السوق.</p>
+                </div>
 
-            <div class="card">
-                <h3><i class="fa-solid fa-sync"></i> 4. محركات التدفقات النقدية ورأس المال العامل</h3>
-                <p>تتتبع هذه المحركات سرعة دوران السيولة وتكشف فجوات التدفقات المعلقة (مثل مستحقات التطبيقات) وتراقب معدل الاحتراق النقدي للخسائر.</p>
-            </div>
+                <div class="card">
+                    <h3>5. محرك كشف الخلل الجذري في التسعير</h3>
+                    <p>يرصد الأخطاء الكارثية، كأن تبتلع تكلفة المشتريات كامل قيمة الإيرادات، مما يعني أن النشاط يخسر مع كل عملية بيع قبل دفع المصاريف الثابتة.</p>
+                </div>
 
-            <div class="card">
-                <h3><i class="fa-solid fa-shield-halved"></i> 5. محركات رصد النمو والسيناريوهات الحرجة</h3>
-                <p>يقارن النظام أداءك بالأشهر السابقة لاكتشاف النمو أو الانكماش، ويحذرك فوراً عند دخول الفرع في "منطقة الخطر المزدوجة" أو الرافعة العكسية.</p>
+                <div class="card">
+                    <h3>6. محرك الرفع التشغيلي</h3>
+                    <p>يقيس مدى حساسية أرباحك للنمو. يوضح لك كيف أن أي زيادة في طلبات الزبائن (بعد تغطية الثابت) ستتحول بشكل مضاعف لتعظيم صافي أرباحك.</p>
+                </div>
+
+                <div class="card">
+                    <h3>7. محرك تقييم العبء الإداري</h3>
+                    <p>يراقب ضغط المصاريف التشغيلية الثابتة (الإيجارات والرواتب) على إيرادات الفرع، وينبهك إذا كانت التكاليف ثقيلة وتعيق تضخم الأرباح.</p>
+                </div>
+
+                <div class="card">
+                    <h3>8. محرك كفاءة تحويل المشتريات</h3>
+                    <p>يقارن قيمة المبيعات بقيمة المشتريات، وينبه التاجر إذا كانت كل مشرياته وصرفه على المواد لا تولد عائداً تسويقياً وإنتاجياً كافياً.</p>
+                </div>
+
+                <div class="card">
+                    <h3>9. محرك تضخم المخزون</h3>
+                    <p>يكتشف تجميد السيولة في بضائع لا تتحول بسرعة إلى مبيعات، ويراقب استحواذ المشتريات على نسبة مفرطة من الإيرادات بالتزامن مع ضعف الأرباح.</p>
+                </div>
+
+                <div class="card">
+                    <h3>10. مؤشر تغطية النفقات الثابتة</h3>
+                    <p>يقيّم ما إذا كان مجمل الدخل قادراً على الوفاء بالالتزامات الثابتة للفرع بأمان، ويطلق تنبيهاً إذا انخفضت نسبة التغطية عن الحدود الآمنة.</p>
+                </div>
+
+                <div class="card">
+                    <h3>11. محرك حساسية النفقات الثابتة</h3>
+                    <p>يستشرف مدى هشاشة أرباحك تجاه أي ارتفاع مستقبلي في الإيجارات أو الأجور، ليحذرك من خطورة الارتباط بعقود تصاعدية.</p>
+                </div>
+
+                <div class="card">
+                    <h3>12. محرك الاحتراق النقدي الصافي</h3>
+                    <p>يترجم الخسائر الشهرية إلى رقم نقدي صريح يوضح سرعة وحجم النقد المستنزف شهرياً، لتسليط الضوء على ضرورة تخفيض المصاريف المرنة.</p>
+                </div>
+
+                <div class="card">
+                    <h3>13. محرك تشخيص فجوة التدفقات</h3>
+                    <p>يرصد التناقض بين المبيعات الدفترية المرتفعة وضعف السيولة الفعلية المتبقية، وهو غالباً ما يرتبط بتأخر تحصيل مستحقات التطبيقات الرقمية.</p>
+                </div>
+
+                <div class="card">
+                    <h3>14. محرك قياس النمو والركود</h3>
+                    <p>يقارن أداء الشهر الحالي بالأشهر السابقة أوتوماتيكياً، ليمنحك تقييماً إيجابياً للنمو، أو إنذاراً مبكراً بالانكماش وتراجع المبيعات.</p>
+                </div>
+
+                <div class="card">
+                    <h3>15. محرك منطقة الخطر المزدوجة</h3>
+                    <p>يرصد أسوأ سيناريو تجاري: (تراجع في المبيعات يتزامن مع خسائر صافية)، مما يرسل تنبيهاً لإعادة الهيكلة الفورية للفرع.</p>
+                </div>
+
+                <div class="card">
+                    <h3>16. محرك الرافعة التشغيلية العكسية</h3>
+                    <p>ينبهك إلى أن تراجع المبيعات البسيط يلتهم أرباحك بسرعة مضاعفة بسبب ثبات المصاريف العالية، مما يتطلب تقليص الهدر فوراً.</p>
+                </div>
+
+                <div class="card">
+                    <h3>17. محرك التذبذب الموسمي</h3>
+                    <p>يقارن أداء الشهر بمتوسط الأداء التاريخي لاكتشاف الانحرافات الحادة والهبوط غير الطبيعي، لتستعد لإطلاق حملات تسويقية طارئة.</p>
+                </div>
+
+                <div class="card">
+                    <h3>18. محرك كفاءة الهوامش الإجمالية</h3>
+                    <p>يتحقق من أن تكلفة المشتريات لا تستنزف الإيرادات لدرجة لا تترك مساحة كافية لتغطية بقية المصاريف الثابتة للفرع.</p>
+                </div>
+
+                <div class="card">
+                    <h3>19. محرك الاستقرار التشغيلي الإيجابي</h3>
+                    <p>يطلق رسائل تحفيزية وتأكيدية عندما يوثّق النظام حفاظ الفرع على أرباح صافية إيجابية ومبيعات متنامية فوق الحد المستهدف.</p>
+                </div>
+
+                <div class="card">
+                    <h3>20. محرك تدقيق الكفاءة الشاملة</h3>
+                    <p>يطابق إجمالي الإيرادات مع مجموع التكاليف لضمان أن منظومة المشروع بأكملها تعمل بانسجام في المنطقة الرابحة والآمنة.</p>
+                </div>
+
             </div>
         </div>
 
     </main>
 
-    <!-- سكربت التبديل بين الأقسام -->
     <script>
-        function switchTab(tabId, element) {
-            // 1. إزالة كلاس active من كل الأزرار في القائمة
-            const menuItems = document.querySelectorAll('.menu-item');
-            menuItems.forEach(item => item.classList.remove('active'));
+        // دالة لفتح وإغلاق القائمة المنسدلة
+        function toggleDropdown() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
 
-            // 2. إضافة كلاس active للزر الذي تم الضغط عليه
-            element.classList.add('active');
+        // إغلاق القائمة عند الضغط في أي مكان خارجها
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn') && !event.target.matches('.dropbtn *')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
 
-            // 3. إخفاء كل الأقسام
+        // دالة التبديل بين الأقسام
+        function switchTab(tabId, titleName) {
+            // تحديث عنوان الزر المنسدل
+            document.getElementById("dropdown-title").innerText = titleName;
+
+            // إخفاء الأقسام وعرض القسم المطلوب
             const sections = document.querySelectorAll('.section-container');
             sections.forEach(section => section.classList.remove('active'));
-
-            // 4. إظهار القسم المطلوب بناءً على الـ tabId
             document.getElementById(tabId).classList.add('active');
         }
     </script>
