@@ -1,226 +1,262 @@
 <!DOCTYPE html>
-<html lang="ar" id="html-tag">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - سياسة الخصوصية | تطبيق سلس</title>
+    <title>سلس | Sels - سياسة الاستخدام والدليل المالي</title>
+    <!-- استدعاء خط كايرو -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- استدعاء أيقونات FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #deff9a;
-            --dark: #050505;
-            --gray: #151515;
-            --text-light: #ffffff;
-            --text-muted: #aaaaaa;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
         }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--dark);
-            color: var(--text-light);
-            line-height: 1.8;
-            margin: 0;
-            padding: 20px;
-            transition: all 0.3s ease;
-        }
-        .container {
-            max-width: 900px;
-            margin: auto;
-            background-color: #0d0d0d;
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid var(--gray);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .header-top {
+            background-color: #050505;
+            color: #fff;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--gray);
-            padding-bottom: 20px;
-            margin-bottom: 30px;
+            min-height: 100vh;
         }
-        .lang-btn {
-            background-color: var(--primary);
-            color: var(--dark);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            font-family: inherit;
-            transition: opacity 0.2s;
+
+        /* --- القائمة الجانبية (يمين) --- */
+        .sidebar {
+            width: 280px;
+            background-color: #0d0d0d;
+            border-left: 1px solid #1a1a1a;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
         }
-        .lang-btn:hover { opacity: 0.8; }
-        h1 { color: var(--primary); font-size: 26px; margin-top: 0; }
-        h2 { color: #ffffff; margin-top: 40px; font-size: 19px; border-bottom: 1px dashed var(--gray); padding-bottom: 10px; }
-        p, li { font-size: 15px; color: var(--text-muted); text-align: justify; }
-        ul { margin-bottom: 20px; }
-        li { margin-bottom: 8px; }
-        .highlight {
-            background-color: rgba(222, 255, 154, 0.05);
-            border-right: 4px solid var(--primary);
-            padding: 15px 20px;
-            margin: 20px 0;
-            border-radius: 8px;
-        }
-        [dir="ltr"] .highlight {
-            border-right: none;
-            border-left: 4px solid var(--primary);
-        }
-        .footer {
+        .logo-container {
             text-align: center;
-            margin-top: 50px;
-            color: var(--primary);
-            font-size: 14px;
-            font-weight: bold;
-            border-top: 1px solid var(--gray);
-            padding-top: 20px;
+            margin-bottom: 40px;
+        }
+        .logo {
+            font-size: 32px;
+            font-weight: 900;
+            color: #deff9a;
+            letter-spacing: 1px;
+        }
+        .logo-sub {
+            color: #666;
+            font-size: 13px;
         }
         
-        /* إخفاء وإظهار اللغات */
-        .en-content { display: none; }
-        [dir="ltr"] .ar-content { display: none; }
-        [dir="ltr"] .en-content { display: block; }
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 18px;
+            color: #888;
+            text-decoration: none;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .menu-item:hover {
+            background-color: #111;
+            color: #fff;
+        }
+        .menu-item.active {
+            background-color: #deff9a;
+            color: #000;
+        }
+        .menu-item i {
+            font-size: 18px;
+        }
+
+        /* --- محتوى الصفحة (يسار) --- */
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+        .section-container {
+            display: none; /* يتم إخفاء الأقسام وتفعيلها بالجافاسكربت */
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        .section-container.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-title {
+            font-size: 26px;
+            color: #fff;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #1a1a1a;
+            padding-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .page-title i {
+            color: #deff9a;
+        }
+
+        /* تنسيقات البطاقات داخل المحتوى */
+        .card {
+            background: #111;
+            border: 1px solid #1a1a1a;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 15px;
+        }
+        .card h3 {
+            color: #deff9a;
+            font-size: 18px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card p {
+            color: #bbb;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        /* التجاوب مع الجوال */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                border-left: none;
+                border-bottom: 1px solid #1a1a1a;
+                padding: 20px;
+            }
+            .logo-container {
+                margin-bottom: 20px;
+            }
+            .main-content {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
-<body dir="rtl" id="body-tag">
+<body>
 
-    <div class="container">
-        <div class="header-top">
-            <h1 class="ar-content">سياسة الخصوصية الشاملة</h1>
-            <h1 class="en-content">Comprehensive Privacy Policy</h1>
+    <!-- القائمة الجانبية (يمين) -->
+    <aside class="sidebar">
+        <div class="logo-container">
+            <div class="logo">SELS</div>
+            <div class="logo-sub">إدارة مالية ذكية</div>
+        </div>
+
+        <!-- أزرار التنقل -->
+        <div class="menu-item active" onclick="switchTab('privacy', this)">
+            <i class="fa-solid fa-shield-halved"></i>
+            سياسة الخصوصية
+        </div>
+        <div class="menu-item" onclick="switchTab('cfo', this)">
+            <i class="fa-solid fa-brain"></i>
+            دليل الذكاء المالي
+        </div>
+    </aside>
+
+    <!-- المحتوى الرئيسي (يسار) -->
+    <main class="main-content">
+        
+        <!-- ============================================== -->
+        <!-- 1. قسم سياسة الخصوصية والاستخدام (الافتراضي) -->
+        <!-- ============================================== -->
+        <div id="privacy" class="section-container active">
+            <h1 class="page-title"><i class="fa-solid fa-file-contract"></i> سياسة الخصوصية والاستخدام</h1>
             
-            <button class="lang-btn" onclick="toggleLanguage()">
-                <span class="ar-content">English Version</span>
-                <span class="en-content">النسخة العربية</span>
-            </button>
-        </div>
-
-        <!-- ================= المحتوى العربي (11 بند) ================= -->
-        <div class="ar-content">
-            <p><strong>تاريخ النفاذ:</strong> سبتمبر 2026</p>
-            <p>نحن نولي أهمية قصوى لسرية وخصوصية البيانات الخاصة بالمستخدمين، التجار، والعمال الذين يديرون أنشطتهم عبر تطبيقنا. تُبين هذه الوثيقة الشاملة كيفية جمعنا، استخدامنا، معالجتنا، وتخزيننا للمعلومات وفقاً لأرقى المعايير التقنية.</p>
-
-            <h2>1. التمهيد ونطاق التطبيق</h2>
-            <p>ينطبق هذا البيان على كافة الخدمات، التطبيقات الذكية، وقواعد البيانات السحابية المرتبطة بالتطبيق. استخدامك للتطبيق يعني موافقتك الصريحة على هذه الممارسات.</p>
-
-            <h2>2. المسؤولية القانونية وحماية السرية التجارية</h2>
-            <p>ندرك حساسية البيانات المالية للأنشطة التجارية، ولذلك نلتزم التزاماً مطلقاً بعدم استغلال أرقام المبيعات والأرباح لأي غرض تجاري خارج نطاق تشغيل التطبيق وخدمة التاجر.</p>
-
-            <h2>3. فئات البيانات والمعلومات التي يتم جمعها</h2>
-            <ul>
-                <li><strong>بيانات الحساب:</strong> البريد الإلكتروني، كلمة المرور المشفرة، واسم النشاط.</li>
-                <li><strong>هوية النشاط:</strong> الصور وشعارات العلامة التجارية (اللوجو) للتقارير.</li>
-                <li><strong>البيانات المالية:</strong> المبيعات، المشتريات، المصاريف التشغيلية، والضرائب.</li>
-                <li><strong>بيانات الفروع:</strong> أسماء الفروع وهويات العمال المرتبطين بصلاحيات الإدخال.</li>
-                <li><strong>بيانات الأجهزة:</strong> رموز إشعارات الدفع (Push Tokens) وأنظمة التشغيل.</li>
-            </ul>
-
-            <h2>4. آليات جمع البيانات مصادرها</h2>
-            <p>تُجمع البيانات إما مباشرة من إدخالات المستخدم (التاجر أو العامل)، أو آلياً عبر السجلات التقنية (Logs) أثناء مزامنة العمليات المالية مع السيرفر.</p>
-
-            <h2>5. الأغراض التقنية والتشغيلية لاستخدام البيانات</h2>
-            <ul>
-                <li>تشغيل الحسابات والتحقق من صلاحيات الدخول.</li>
-                <li>إصدار التقارير المالية الختامية وحساب هوامش الربح.</li>
-                <li>تفعيل منظومة الإشعارات الفورية والتنبيهات الذكية.</li>
-                <li>تطوير خوارزميات التحليل المالي والمقارنات الذكية.</li>
-            </ul>
-
-            <h2>6. أمن البيانات التشفير والتخزين السحابي</h2>
-            <div class="highlight">
-                <p><strong>معايير الأمان:</strong> تُخزن كافة البيانات على خوادم سحابية مشفرة بالكامل، مع تطبيق سياسات (Row-Level Security) تضمن عدم وصول أي جهة أخرى لبياناتك نهائياً. نستخدم بروتوكولات (HTTPS/SSL) لتشفير نقل البيانات.</p>
+            <div class="card">
+                <h3><i class="fa-solid fa-lock"></i> حماية وسرية البيانات</h3>
+                <p>
+                    في تطبيق "سلس"، نعتبر بياناتك المالية والتجارية سراً من أسرار عملك. نلتزم بحماية كافة البيانات المُدخلة من مبيعات ومشتريات ومصروفات باستخدام أحدث تقنيات التشفير، ولا يتم مشاركة أي معلومات أو أرقام مع أي طرف ثالث لأي غرض تسويقي أو غيره.
+                </p>
             </div>
 
-            <h2>7. مشاركة البيانات والإفصاح عنها للغير</h2>
-            <p>لا يتم بيع أو مشاركة بياناتك أبداً. الإفصاح يقتصر فقط على الامتثال للطلبات القانونية الرسمية من الجهات التنظيمية والضريبية المختصة عند وجود إلزام قانوني، أو لحماية النظام من الاحتيال.</p>
-
-            <h2>8. حقوق المستخدم وإدارة البيانات الشخصية</h2>
-            <p>يحق للتاجر مراجعة، تعديل، أو <strong>حذف حسابه نهائياً</strong>. يتيح التطبيق خياراً مباشراً لحذف الحساب ومسح كافة السجلات والفروع المرتبطة به بضغطة زر من خلال (منطقة الخطر) في الإعدادات.</p>
-
-            <h2>9. سياسة الخصوصية الخاصة بالعمال</h2>
-            <p>التاجر (المالك) هو المسؤول الأول عن منح صلاحيات الدخول للعمال ومراقبتهم، مع التزام النظام بالتحقق من الهوية بدقة لمنع التلاعب.</p>
-
-            <h2>10. التعديلات والتحديثات</h2>
-            <p>يحق لنا تحديث هذه السياسة بما يتوافق مع المستجدات التقنية، وسيتم إشعار المستخدمين عبر تحديث تاريخ الإصدار أو التنبيهات الداخلية.</p>
-
-            <h2>11. تواصل معنا ودعم العملاء</h2>
-            <p>لأي استفسارات أو طلبات تخص البيانات، يمكنك التواصل معنا مباشرة من خلال "مركز المساعدة والدعم الفني" المتاح داخل التطبيق.</p>
-        </div>
-
-        <!-- ================= English Content (11 Sections) ================= -->
-        <div class="en-content">
-            <p><strong>Effective Date:</strong> September 2026</p>
-            <p>We place the utmost importance on the confidentiality and privacy of the data of our users, merchants, and workers. This comprehensive document outlines how we collect, use, process, and store information in accordance with the highest technical standards.</p>
-
-            <h2>1. Introduction and Scope</h2>
-            <p>This statement applies to all services, smart apps, and cloud databases associated with the application. By using the app, you explicitly agree to these practices.</p>
-
-            <h2>2. Legal Responsibility and Commercial Confidentiality</h2>
-            <p>We understand the sensitivity of commercial financial data. We are absolutely committed to never using sales figures or profits for any commercial purpose outside the scope of operating the app and serving the merchant.</p>
-
-            <h2>3. Categories of Data Collected</h2>
-            <ul>
-                <li><strong>Account Data:</strong> Email, encrypted password, and business name.</li>
-                <li><strong>Business Identity:</strong> Images and logos for reporting purposes.</li>
-                <li><strong>Financial Data:</strong> Sales, purchases, operational expenses, and taxes.</li>
-                <li><strong>Branch Data:</strong> Branch names and identities of workers with entry permissions.</li>
-                <li><strong>Device Data:</strong> Push notification tokens and operating systems.</li>
-            </ul>
-
-            <h2>4. Data Collection Mechanisms</h2>
-            <p>Data is collected either directly from user inputs (merchant or worker) or automatically via technical logs during the synchronization of financial operations with the server.</p>
-
-            <h2>5. Technical and Operational Purposes</h2>
-            <ul>
-                <li>Operating accounts and verifying access permissions.</li>
-                <li>Issuing final financial reports and calculating profit margins.</li>
-                <li>Activating instant push notifications and smart alerts.</li>
-                <li>Developing financial analysis algorithms and smart comparisons.</li>
-            </ul>
-
-            <h2>6. Data Security and Cloud Storage</h2>
-            <div class="highlight">
-                <p><strong>Security Standards:</strong> All data is stored on fully encrypted cloud servers, applying Row-Level Security (RLS) policies to ensure no third party can access your data. We use HTTPS/SSL protocols for data transmission encryption.</p>
+            <div class="card">
+                <h3><i class="fa-solid fa-server"></i> تخزين البيانات</h3>
+                <p>
+                    تُحفظ البيانات في خوادم سحابية آمنة ومحمية. يُسمح لك بالوصول لبياناتك في أي وقت، وبصفتك صاحب الحساب (المالك)، تمتلك الصلاحية الكاملة لحذف فروعك أو تعديل بياناتها، وستُحذف فوراً من قواعد بياناتنا بشكل نهائي عند طلبك.
+                </p>
             </div>
 
-            <h2>7. Data Sharing and Disclosure</h2>
-            <p>Your data is never sold or shared. Disclosure is strictly limited to complying with official legal requests from regulatory and tax authorities when legally required, or to protect the system from fraud.</p>
-
-            <h2>8. User Rights and Data Management</h2>
-            <p>The merchant has the right to review, edit, or <strong>permanently delete their account</strong>. The app provides a direct option to delete the account and wipe all associated records and branches via the (Danger Zone) in the settings.</p>
-
-            <h2>9. Privacy Policy for Workers</h2>
-            <p>The merchant (owner) is primarily responsible for granting access permissions to workers and monitoring them, while the system is committed to strict identity verification to prevent tampering.</p>
-
-            <h2>10. Amendments and Updates</h2>
-            <p>We reserve the right to update this policy to align with technical developments. Users will be notified via the updated effective date or internal alerts.</p>
-
-            <h2>11. Contact Us and Customer Support</h2>
-            <p>For any inquiries or data requests, you can contact us directly through the "Help and Support Center" available within the app.</p>
+            <div class="card">
+                <h3><i class="fa-solid fa-robot"></i> التحليلات والذكاء الاصطناعي</h3>
+                <p>
+                    نظام الذكاء المالي وتوليد التقارير يعمل تلقائياً داخل النظام لمعالجة الأرقام وتقديم التوصيات لك فقط. لا يتدخل أي عنصر بشري في قراءة تقاريرك، مما يضمن لك خصوصية تامة كمشترك في التطبيق.
+                </p>
+            </div>
         </div>
 
-        <!-- ================= التذييل المشترك ================= -->
-        <div class="footer">
-            <span class="ar-content">نظام الإدارة المالية والمحاسبية المتقدم لتطبيق سلس</span>
-            <span class="en-content">Advanced Financial and Accounting Management System for Salas App</span>
-        </div>
-    </div>
 
-    <!-- كود التبديل بين اللغات -->
+        <!-- ============================================== -->
+        <!-- 2. قسم دليل الذكاء المالي (CFO) -->
+        <!-- ============================================== -->
+        <div id="cfo" class="section-container">
+            <h1 class="page-title"><i class="fa-solid fa-brain"></i> دليل محركات الذكاء المالي</h1>
+            
+            <div class="card" style="background: rgba(222, 255, 154, 0.05); border-color: rgba(222, 255, 154, 0.15);">
+                <p style="color: #fff;">
+                    يقوم تطبيق "سلس" بدمج أكثر من 20 محركاً تحليلياً متقدماً لترجمة أرقام مبيعاتك ومشترياتك ومصاريفك إلى رؤى وتنبيهات استباقية تحمي مشروعك وتضاعف أرباحك، لتكون بمثابة مدير مالي (CFO) في جيبك.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3><i class="fa-solid fa-wallet"></i> 1. محركات السيولة والأمان المالي</h3>
+                <p>يراقب النظام أرباحك الصافية لحظياً، ويطلق تنبيهات مبكرة عند رصد أي عجز نقدي، مع حساب نقطة التعادل بدقة وهامش الأمان الذي يبعدك عن خط الخسارة.</p>
+            </div>
+
+            <div class="card">
+                <h3><i class="fa-solid fa-chart-line"></i> 2. محركات كفاءة التسعير والأرباح</h3>
+                <p>يحلل النظام كفاءة تسعير منتجاتك وجباتك عبر قياس هامش الربح الصافي، ويكشف أي خلل جذري قد يجعل تكلفة البضاعة تبتلع إيراداتك.</p>
+            </div>
+
+            <div class="card">
+                <h3><i class="fa-solid fa-pie-chart"></i> 3. محركات إدارة المصاريف والعبء التشغيلي</h3>
+                <p>يقيّم النظام مدى ضغط المصاريف الثابتة (الإيجارات والرواتب) على إيرادات الفرع، ويراقب تكاليف المشتريات ومواد التشغيل لمنع الهدر الصامت.</p>
+            </div>
+
+            <div class="card">
+                <h3><i class="fa-solid fa-sync"></i> 4. محركات التدفقات النقدية ورأس المال العامل</h3>
+                <p>تتتبع هذه المحركات سرعة دوران السيولة وتكشف فجوات التدفقات المعلقة (مثل مستحقات التطبيقات) وتراقب معدل الاحتراق النقدي للخسائر.</p>
+            </div>
+
+            <div class="card">
+                <h3><i class="fa-solid fa-shield-halved"></i> 5. محركات رصد النمو والسيناريوهات الحرجة</h3>
+                <p>يقارن النظام أداءك بالأشهر السابقة لاكتشاف النمو أو الانكماش، ويحذرك فوراً عند دخول الفرع في "منطقة الخطر المزدوجة" أو الرافعة العكسية.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- سكربت التبديل بين الأقسام -->
     <script>
-        function toggleLanguage() {
-            const body = document.getElementById('body-tag');
-            const html = document.getElementById('html-tag');
-            
-            if (body.getAttribute('dir') === 'rtl') {
-                // تحويل إلى الإنجليزية
-                body.setAttribute('dir', 'ltr');
-                html.setAttribute('lang', 'en');
-            } else {
-                // تحويل إلى العربية
-                body.setAttribute('dir', 'rtl');
-                html.setAttribute('lang', 'ar');
-            }
+        function switchTab(tabId, element) {
+            // 1. إزالة كلاس active من كل الأزرار في القائمة
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => item.classList.remove('active'));
+
+            // 2. إضافة كلاس active للزر الذي تم الضغط عليه
+            element.classList.add('active');
+
+            // 3. إخفاء كل الأقسام
+            const sections = document.querySelectorAll('.section-container');
+            sections.forEach(section => section.classList.remove('active'));
+
+            // 4. إظهار القسم المطلوب بناءً على الـ tabId
+            document.getElementById(tabId).classList.add('active');
         }
     </script>
 </body>
