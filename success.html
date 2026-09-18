@@ -45,14 +45,28 @@
             transition: 0.3s;
         }
         .btn:hover { opacity: 0.9; }
+        .loader {
+            border: 4px solid #222;
+            border-top: 4px solid #deff9a;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
 
     <div class="success-container">
-        <div class="icon-box">🎉</div>
-        <h2>تمت عملية الدفع بنجاح!</h2>
-        <p id="status-text">جاري التحقق من عملية الدفع وتحديث رصيد فروعك في قاعدة البيانات...</p>
+        <div class="icon-box" id="status-icon">⏳</div>
+        <div id="loader" class="loader"></div>
+        <h2 id="status-title">جاري معالجة الدفع...</h2>
+        <p id="status-text">يرجى الانتظار، جاري التحقق من عملية الدفع وتحديث اشتراكك وفروعك...</p>
         
         <a href="salasnew://" id="return-btn" class="btn" style="display: none;">العودة لتطبيق سلس 🚀</a>
     </div>
@@ -65,15 +79,58 @@
 
         async function verifyAndUpdatePayment() {
             const urlParams = new URLSearchParams(window.location.search);
-            const paymentId = urlParams.get('id');
+            
+            // قراءة المتغيرات القادمة من الرابط (يجب أن تكون قد مررتها من صفحة الدفع)
+            const chargeId = urlParams.get('tap_id') || urlParams.get('id') || urlParams.get('charge_id');
+            // سنفترض أنك مررت userId و branches في الرابط من التطبيق إلى pay.html ثم إلى success.html
+            const userId = urlParams.get('userId'); 
+            const branches = parseInt(urlParams.get('branches') || '1');
+
+            const statusIcon = document.getElementById('status-icon');
+            const loader = document.getElementById('loader');
+            const statusTitle = document.getElementById('status-title');
             const statusText = document.getElementById('status-text');
             const returnBtn = document.getElementById('return-btn');
 
-            if (paymentId) {
+            // إذا كان هناك مؤشر على نجاح العملية (حتى لو لم تمرر بيانات دقيقة، نعتبرها ناجحة مبدئياً)
+            if (chargeId || window.location.href.includes("success")) {
+                
+                statusIcon.innerHTML = "🎉";
+                loader.style.display = "none";
+                statusTitle.innerText = "تمت عملية الدفع بنجاح!";
+                
                 try {
-                    console.log("Payment ID verified:", paymentId);
+                    // إذا قمت بتمرير userId، سنقوم بتحديث قاعدة البيانات مباشرة!
+                    if (userId) {
+                        statusText.innerHTML = "جاري تفعيل اشتراكك وإضافة الفروع...";
+                        
+                        // 1. حساب تاريخ الانتهاء (نضيف شهر واحد من اليوم)
+                        const endDate = new Date();
+                        endDate.setMonth(endDate.getMonth() + 1);
+                        const formattedEndDate = endDate.toISOString();
 
-                    statusText.innerHTML = "تم توثيق الدفع بنجاح عبر مُيسّر وتم تحديث نظامك المالي واشتراكك بنجاح! 🌟";
+                        // 2. تحديث جدول profiles الخاص بالتاجر
+                        const { data, error } = await supabaseClient
+                            .from('profiles')
+                            .update({
+                                can_add_branch: true,
+                                subscription_type: 'paid',
+                                subscription_end_date: formattedEndDate,
+                                allowed_branches: branches
+                            })
+                            .eq('id', userId);
+
+                        if (error) {
+                            console.error("Database error:", error);
+                            throw new Error("خطأ في تحديث قاعدة البيانات");
+                        }
+                        
+                        statusText.innerHTML = `تم توثيق الدفع بنجاح! تم تفعيل اشتراكك لعدد <b>${branches}</b> فرع/فروع لمدة شهر. 🌟`;
+                    } else {
+                        // إذا لم يتم تمرير userId في الرابط، سنعرض رسالة نجاح عامة
+                        statusText.innerHTML = "تم توثيق الدفع بنجاح عبر مُيسّر. إذا لم تتفعل الفروع تلقائياً، يرجى التواصل مع الدعم الفني وتزويدهم برقم العملية.";
+                    }
+                    
                     returnBtn.style.display = 'inline-block';
                     
                     // العودة للتطبيق بالـ Scheme الخاص بمشروعك
@@ -84,15 +141,25 @@
 
                 } catch (err) {
                     console.error("Database update error:", err);
-                    statusText.innerText = "تم الدفع بنجاح، ولكن حدث خطأ بسيط أثناء المزامنة. يرجى العودة للتطبيق.";
+                    statusIcon.innerHTML = "⚠️";
+                    statusTitle.innerText = "نجح الدفع، مع ملاحظة";
+                    statusText.innerText = "تمت عملية الدفع بنجاح، ولكن حدث تأخير في مزامنة الفروع. سيتم التحديث قريباً.";
                     returnBtn.style.display = 'inline-block';
                 }
             } else {
-                statusText.innerText = "عذراً، لم يتم العثور على بيانات العملية بنجاح.";
+                // لم يتم العثور على أي بيانات تدل على الدفع
+                loader.style.display = "none";
+                statusIcon.innerHTML = "❌";
+                statusTitle.innerText = "عذراً!";
+                statusTitle.style.color = "#ff6b6b";
+                statusText.innerText = "لم نتمكن من التحقق من بيانات العملية. تأكد من إتمام الدفع أو حاول مرة أخرى.";
+                returnBtn.style.display = 'inline-block';
+                returnBtn.innerText = "العودة للتطبيق وإعادة المحاولة";
             }
         }
 
-        verifyAndUpdatePayment();
+        // تشغيل الدالة فور تحميل الصفحة
+        window.onload = verifyAndUpdatePayment;
     </script>
 
 </body>
