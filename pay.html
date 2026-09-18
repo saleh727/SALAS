@@ -93,12 +93,11 @@
     </div>
 
     <script>
-        // سحب المبلغ وعدد الفروع من الرابط (الذي يرسله التطبيق)
         const urlParams = new URLSearchParams(window.location.search);
+        // تأكد من أن التطبيق يرسل مبلغاً أكبر من الصفر!
         const amount = urlParams.get('amount') || '0';
         const branches = urlParams.get('branches') || '1';
 
-        // عرض المبلغ في الشاشة
         document.getElementById('displayAmount').innerText = amount;
 
         async function startPayment() {
@@ -110,13 +109,14 @@
             loader.style.display = 'block';
 
             try {
-                // الرابط الجديد للدالة السحابية الخاصة بمشروعك
                 const supabaseFunctionUrl = 'https://veykkaazqucjekhmwnek.supabase.co/functions/v1/tap-payment';
                 
                 const response = await fetch(supabaseFunctionUrl, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        // تم دمج مفتاحك هنا لتمكين الوصول للدالة
+                        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZleWtrYWF6cXVjamVraG13bmVrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3NTExNDgsImV4cCI6MjA5NDMyNzE0OH0.28s7JbWu9oqqcnRqfogsoBpc4F_RJfsBDhrFNNcQMVw'
                     },
                     body: JSON.stringify({
                         amount: amount,
@@ -126,7 +126,6 @@
 
                 const data = await response.json();
                 
-                // التوجيه لصفحة الدفع الآمنة من Tap
                 if (data && data.transaction && data.transaction.url) {
                     window.location.href = data.transaction.url;
                 } else {
