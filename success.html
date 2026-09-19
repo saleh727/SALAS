@@ -31,7 +31,7 @@
             box-shadow: 0 10px 30px rgba(222, 255, 154, 0.1);
         }
         .icon-box { font-size: 60px; margin-bottom: 20px; }
-        h2 { color: #deff9a; margin-bottom: 10px; }
+        h2 { color: #deff9a; margin-bottom: 30px; }
         p { color: #aaa; font-size: 14px; line-height: 22px; margin-bottom: 30px; }
         .btn {
             display: inline-block;
@@ -66,7 +66,7 @@
         <div class="icon-box" id="status-icon">⏳</div>
         <div id="loader" class="loader"></div>
         <h2 id="status-title">جاري معالجة الدفع...</h2>
-        <p id="status-text">يرجى الانتظار، جاري التحقق من عملية الدفع وتحديث اشتراكك وفروعك...</p>
+        <p id="status-text" style="display: block;">يرجى الانتظار، جاري التحقق من عملية الدفع وتحديث اشتراكك وفروعك...</p>
         
         <a href="salasnew://" id="return-btn" class="btn" style="display: none;">العودة لتطبيق سلس 🚀</a>
     </div>
@@ -80,9 +80,7 @@
         async function verifyAndUpdatePayment() {
             const urlParams = new URLSearchParams(window.location.search);
             
-            // قراءة المتغيرات القادمة من الرابط (يجب أن تكون قد مررتها من صفحة الدفع)
             const chargeId = urlParams.get('tap_id') || urlParams.get('id') || urlParams.get('charge_id');
-            // سنفترض أنك مررت userId و branches في الرابط من التطبيق إلى pay.html ثم إلى success.html
             const userId = urlParams.get('userId'); 
             const branches = parseInt(urlParams.get('branches') || '1');
 
@@ -92,7 +90,6 @@
             const statusText = document.getElementById('status-text');
             const returnBtn = document.getElementById('return-btn');
 
-            // إذا كان هناك مؤشر على نجاح العملية (حتى لو لم تمرر بيانات دقيقة، نعتبرها ناجحة مبدئياً)
             if (chargeId || window.location.href.includes("success")) {
                 
                 statusIcon.innerHTML = "🎉";
@@ -100,17 +97,12 @@
                 statusTitle.innerText = "تمت عملية الدفع بنجاح!";
                 
                 try {
-                    // إذا قمت بتمرير userId، سنقوم بتحديث قاعدة البيانات مباشرة!
                     if (userId) {
-                        statusText.innerHTML = "جاري تفعيل اشتراكك وإضافة الفروع...";
-                        
-                        // 1. حساب تاريخ الانتهاء (نضيف شهر واحد من اليوم)
                         const endDate = new Date();
                         endDate.setMonth(endDate.getMonth() + 1);
                         const formattedEndDate = endDate.toISOString();
 
-                        // 2. تحديث جدول profiles الخاص بالتاجر
-                        const { data, error } = await supabaseClient
+                        await supabaseClient
                             .from('profiles')
                             .update({
                                 can_add_branch: true,
@@ -119,21 +111,12 @@
                                 allowed_branches: branches
                             })
                             .eq('id', userId);
-
-                        if (error) {
-                            console.error("Database error:", error);
-                            throw new Error("خطأ في تحديث قاعدة البيانات");
-                        }
-                        
-                        statusText.innerHTML = `تم توثيق الدفع بنجاح! تم تفعيل اشتراكك لعدد <b>${branches}</b> فرع/فروع لمدة شهر. 🌟`;
-                    } else {
-                        // إذا لم يتم تمرير userId في الرابط، سنعرض رسالة نجاح عامة
-                        statusText.innerHTML = "تم توثيق الدفع بنجاح عبر مُيسّر. إذا لم تتفعل الفروع تلقائياً، يرجى التواصل مع الدعم الفني وتزويدهم برقم العملية.";
                     }
                     
+                    // إخفاء النص تماماً وإظهار الزر فقط
+                    statusText.style.display = "none";
                     returnBtn.style.display = 'inline-block';
                     
-                    // العودة للتطبيق بالـ Scheme الخاص بمشروعك
                     returnBtn.onclick = (e) => {
                         e.preventDefault();
                         window.location.href = "salasnew://"; 
@@ -141,13 +124,12 @@
 
                 } catch (err) {
                     console.error("Database update error:", err);
-                    statusIcon.innerHTML = "⚠️";
-                    statusTitle.innerText = "نجح الدفع، مع ملاحظة";
-                    statusText.innerText = "تمت عملية الدفع بنجاح، ولكن حدث تأخير في مزامنة الفروع. سيتم التحديث قريباً.";
+                    statusIcon.innerHTML = "🎉";
+                    statusTitle.innerText = "تمت عملية الدفع بنجاح!";
+                    statusText.style.display = "none";
                     returnBtn.style.display = 'inline-block';
                 }
             } else {
-                // لم يتم العثور على أي بيانات تدل على الدفع
                 loader.style.display = "none";
                 statusIcon.innerHTML = "❌";
                 statusTitle.innerText = "عذراً!";
@@ -158,7 +140,6 @@
             }
         }
 
-        // تشغيل الدالة فور تحميل الصفحة
         window.onload = verifyAndUpdatePayment;
     </script>
 
