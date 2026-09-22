@@ -1,102 +1,8 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة الدفع - تطبيق سلس</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #050505;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            background-color: #111111;
-            padding: 40px 30px;
-            border-radius: 20px;
-            text-align: center;
-            width: 90%;
-            max-width: 400px;
-            border: 1px solid #222;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-        }
-        h2 {
-            margin-top: 0;
-            color: #deff9a;
-            font-size: 24px;
-        }
-        p {
-            color: #888;
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-        .amount-display {
-            font-size: 36px;
-            font-weight: bold;
-            margin-bottom: 30px;
-            color: #ffffff;
-        }
-        .amount-display span {
-            font-size: 18px;
-            color: #deff9a;
-        }
-        button {
-            background-color: #deff9a;
-            color: #000;
-            border: none;
-            padding: 16px 20px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 12px;
-            width: 100%;
-            cursor: pointer;
-            transition: opacity 0.3s;
-        }
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-        .loader {
-            display: none;
-            border: 3px solid #333;
-            border-top: 3px solid #000;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            animation: spin 1s linear infinite;
-            margin: 15px auto 0;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <h2>دفع الاشتراك</h2>
-        <p>تتم عملية الدفع بشكل آمن ومشفر بالكامل عبر بوابة Tap Payments</p>
-        
-        <div class="amount-display">
-            <span id="displayAmount">0</span> <span>ر.س</span>
-        </div>
-
-        <button id="payBtn" onclick="startPayment()">متابعة الدفع</button>
-        <div class="loader" id="loader"></div>
-    </div>
-
-    <script>
+<script>
         const urlParams = new URLSearchParams(window.location.search);
-        // تأكد من أن التطبيق يرسل مبلغاً أكبر من الصفر!
         const amount = urlParams.get('amount') || '0';
         const branches = urlParams.get('branches') || '1';
+        const userId = urlParams.get('userId') || ''; // التقاط معرف التاجر
 
         document.getElementById('displayAmount').innerText = amount;
 
@@ -115,12 +21,12 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        // تم دمج مفتاحك هنا لتمكين الوصول للدالة
                         'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZleWtrYWF6cXVjamVraG13bmVrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3NTExNDgsImV4cCI6MjA5NDMyNzE0OH0.28s7JbWu9oqqcnRqfogsoBpc4F_RJfsBDhrFNNcQMVw'
                     },
                     body: JSON.stringify({
                         amount: amount,
-                        branches: branches
+                        branches: branches,
+                        userId: userId // إرسال المعرف للدالة السحابية
                     })
                 });
 
@@ -146,5 +52,3 @@
             loader.style.display = 'none';
         }
     </script>
-</body>
-</html>
