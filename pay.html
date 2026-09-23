@@ -1,10 +1,18 @@
 <script>
         const urlParams = new URLSearchParams(window.location.search);
-        const amount = urlParams.get('amount') || '0';
         const branches = urlParams.get('branches') || '1';
         const userId = urlParams.get('userId') || ''; // التقاط معرف التاجر
+        
+        // 🌟 حساب المبلغ تلقائياً بناءً على عدد الفروع المرسلة من التطبيق
+        const amount = (parseInt(branches) * 69).toString(); 
 
-        document.getElementById('displayAmount').innerText = amount;
+        // 🌟 الحل السحري: نأمر المتصفح بالانتظار حتى تكتمل الصفحة قبل تعديل النص
+        document.addEventListener("DOMContentLoaded", () => {
+            const displayElement = document.getElementById('displayAmount');
+            if (displayElement) {
+                displayElement.innerText = amount;
+            }
+        });
 
         async function startPayment() {
             const btn = document.getElementById('payBtn');
