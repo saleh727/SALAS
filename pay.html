@@ -110,26 +110,20 @@
         const urlParams = new URLSearchParams(window.location.search);
         const branches = urlParams.get('branches') || '1';
         const userId = urlParams.get('userId') || '';
-        const userName = urlParams.get('userName') || '';
+        const userName = urlParams.get('userName');
 
-        // حفظ الاسم في الذاكرة لتقرأه صفحة success.html
-        if (userName) {
+        // تحديث الاسم فوراً بمجرد قراءة الرابط
+        const nameElement = document.getElementById('merchantName');
+        if (userName && nameElement) {
+            nameElement.innerText = `مرحباً بك، ${userName}`;
             localStorage.setItem('merchantName', userName);
         }
 
         const amount = (parseInt(branches, 10) * 69).toString();
-
-        document.addEventListener("DOMContentLoaded", () => {
-            const displayElement = document.getElementById('displayAmount');
-            if (displayElement) {
-                displayElement.innerText = amount;
-            }
-
-            const nameElement = document.getElementById('merchantName');
-            if (nameElement && userName) {
-                nameElement.innerText = `مرحباً بك، ${userName}`;
-            }
-        });
+        const displayElement = document.getElementById('displayAmount');
+        if (displayElement) {
+            displayElement.innerText = amount;
+        }
 
         async function startPayment() {
             const btn = document.getElementById('payBtn');
@@ -152,11 +146,10 @@
                         amount: amount,
                         branches: branches,
                         userId: userId,
-                        userName: userName
+                        userName: userName || 'صاحب المنشأة'
                     })
                 });
 
-                // التعديل هنا: صيد أخطاء الخادم (مثل 400 أو 500)
                 if (!response.ok) {
                     const errorText = await response.text();
                     throw new Error(`خطأ من الخادم (${response.status}): ${errorText}`);
@@ -172,7 +165,6 @@
                     throw new Error("استجابة غير متوقعة من الخادم: " + JSON.stringify(data));
                 }
             } catch (error) {
-                // التعديل هنا: عرض الخطأ الفعلي بوضوح للمستخدم للتشخيص
                 alert('فشل الاتصال!\n\nالسبب التقني:\n' + error.message);
                 console.error("Fetch Error:", error);
                 resetButton(btn, loader);
