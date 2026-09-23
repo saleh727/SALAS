@@ -31,7 +31,17 @@
             box-shadow: 0 10px 30px rgba(222, 255, 154, 0.1);
         }
         .icon-box { font-size: 60px; margin-bottom: 20px; }
-        h2 { color: #deff9a; margin-bottom: 30px; }
+        h2 { color: #deff9a; margin-bottom: 15px; }
+        
+        /* 🌟 تنسيق اسم التاجر */
+        .merchant-name {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            display: none;
+        }
+
         p { color: #aaa; font-size: 14px; line-height: 22px; margin-bottom: 30px; }
         .btn {
             display: inline-block;
@@ -66,6 +76,10 @@
         <div class="icon-box" id="status-icon">⏳</div>
         <div id="loader" class="loader"></div>
         <h2 id="status-title">جاري معالجة الدفع...</h2>
+        
+        <!-- 🌟 المكان المخصص لظهور اسم التاجر -->
+        <div id="merchant-name" class="merchant-name"></div>
+        
         <p id="status-text" style="display: block;">يرجى الانتظار، جاري التحقق من عملية الدفع وتحديث اشتراكك وفروعك...</p>
         
         <a href="salasnew://" id="return-btn" class="btn" style="display: none;">العودة لتطبيق سلس 🚀</a>
@@ -84,10 +98,14 @@
             const userId = urlParams.get('userId'); 
             const branches = parseInt(urlParams.get('branches') || '1');
 
+            // 🌟 1. استخراج اسم التاجر من الرابط أو الذاكرة المؤقتة
+            let merchantName = urlParams.get('userName') || localStorage.getItem('merchantName') || '';
+
             const statusIcon = document.getElementById('status-icon');
             const loader = document.getElementById('loader');
             const statusTitle = document.getElementById('status-title');
             const statusText = document.getElementById('status-text');
+            const merchantNameEl = document.getElementById('merchant-name');
             const returnBtn = document.getElementById('return-btn');
 
             if (chargeId || window.location.href.includes("success")) {
@@ -102,6 +120,7 @@
                         endDate.setMonth(endDate.getMonth() + 1);
                         const formattedEndDate = endDate.toISOString();
 
+                        // تحديث بيانات التاجر في قاعدة البيانات
                         await supabaseClient
                             .from('profiles')
                             .update({
@@ -111,9 +130,27 @@
                                 allowed_branches: branches
                             })
                             .eq('id', userId);
+
+                        // 🌟 إذا لم يتوفر الاسم في الرابط أو الذاكرة، نجلبه مباشرة من Supabase
+                        if (!merchantName) {
+                            const { data: profile } = await supabaseClient
+                                .from('profiles')
+                                .select('full_name, business_name')
+                                .eq('id', userId)
+                                .single();
+                            if (profile) {
+                                merchantName = profile.full_name || profile.business_name || '';
+                            }
+                        }
                     }
                     
-                    // إخفاء النص تماماً وإظهار الزر فقط
+                    // 🌟 عرض اسم التاجر بشكل ترحيبي
+                    if (merchantName) {
+                        merchantNameEl.innerText = "شكراً لك يا " + merchantName + " 🎉";
+                        merchantNameEl.style.display = "block";
+                    }
+
+                    // إخفاء نص التحميل وإظهار زر العودة للتطبيق
                     statusText.style.display = "none";
                     returnBtn.style.display = 'inline-block';
                     
@@ -126,6 +163,12 @@
                     console.error("Database update error:", err);
                     statusIcon.innerHTML = "🎉";
                     statusTitle.innerText = "تمت عملية الدفع بنجاح!";
+                    
+                    if (merchantName) {
+                        merchantNameEl.innerText = "شكراً لك يا " + merchantName + " 🎉";
+                        merchantNameEl.style.display = "block";
+                    }
+
                     statusText.style.display = "none";
                     returnBtn.style.display = 'inline-block';
                 }
