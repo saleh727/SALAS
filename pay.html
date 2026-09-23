@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة الدفع - تطبيق قيم</title>
+    <title>بوابة الدفع - تطبيق سلس</title>
     <style>
         body {
             background-color: #050505;
@@ -13,35 +13,37 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
         }
         .card {
             background-color: #111;
             border: 1px solid #222;
             border-radius: 20px;
             padding: 30px;
-            width: 90%;
+            width: 100%;
             max-width: 400px;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
         }
         h2 {
             color: #deff9a;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-size: 24px;
         }
-        /* 🌟 تنسيق اسم التاجر الجديد 🌟 */
         .merchant-name {
-            color: #fff;
+            color: #ffffff;
             font-size: 18px;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: bold;
         }
         p {
             color: #888;
             font-size: 14px;
             margin-bottom: 25px;
+            line-height: 1.5;
         }
         .amount-box {
             background-color: #0d0d0d;
@@ -51,7 +53,7 @@
             margin-bottom: 25px;
         }
         .amount {
-            font-size: 36px;
+            font-size: 38px;
             font-weight: bold;
             color: #fff;
         }
@@ -65,16 +67,19 @@
             color: #000;
             border: none;
             border-radius: 12px;
-            padding: 15px 20px;
+            padding: 16px 20px;
             font-size: 16px;
             font-weight: bold;
             width: 100%;
             cursor: pointer;
-            transition: 0.3s;
+            transition: opacity 0.2s ease;
+        }
+        button:hover {
+            opacity: 0.9;
         }
         button:disabled {
-            background-color: #444;
-            color: #888;
+            background-color: #333;
+            color: #777;
             cursor: not-allowed;
         }
         #loader {
@@ -89,7 +94,6 @@
 
     <div class="card">
         <h2>تأكيد الاشتراك</h2>
-        <!-- 🌟 المكان الذي سيظهر فيه اسم التاجر 🌟 -->
         <div id="merchantName" class="merchant-name">مرحباً بك</div>
         <p>سيتم تحويلك الآن لبوابة الدفع الآمنة</p>
         
@@ -106,9 +110,14 @@
         const urlParams = new URLSearchParams(window.location.search);
         const branches = urlParams.get('branches') || '1';
         const userId = urlParams.get('userId') || '';
-        const userName = urlParams.get('userName') || ''; // 🌟 التقاط اسم التاجر
-        
-        const amount = (parseInt(branches) * 69).toString(); 
+        const userName = urlParams.get('userName') || '';
+
+        // حفظ الاسم في الذاكرة لتقرأه صفحة success.html
+        if (userName) {
+            localStorage.setItem('merchantName', userName);
+        }
+
+        const amount = (parseInt(branches, 10) * 69).toString();
 
         document.addEventListener("DOMContentLoaded", () => {
             const displayElement = document.getElementById('displayAmount');
@@ -116,10 +125,9 @@
                 displayElement.innerText = amount;
             }
 
-            // 🌟 طباعة اسم التاجر إذا كان موجوداً في الرابط 🌟
             const nameElement = document.getElementById('merchantName');
             if (nameElement && userName) {
-                nameElement.innerText = 'مرحباً بك، ' + userName;
+                nameElement.innerText = `مرحباً بك، ${userName}`;
             }
         });
 
@@ -143,7 +151,8 @@
                     body: JSON.stringify({
                         amount: amount,
                         branches: branches,
-                        userId: userId
+                        userId: userId,
+                        userName: userName
                     })
                 });
 
@@ -153,7 +162,7 @@
                     window.location.href = data.transaction.url;
                 } else {
                     alert('حدث خطأ فني أثناء إنشاء الفاتورة.');
-                    console.log("Response Data:", data);
+                    console.error("Response Data:", data);
                     resetButton(btn, loader);
                 }
             } catch (error) {
