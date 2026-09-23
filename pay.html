@@ -3,14 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تأكيد الدفع - تطبيق سلس</title>
-    <!-- ... (نفس أكواد الستايل السابقة) ... -->
+    <title>بوابة الدفع - تطبيق سلس</title>
+    <style>
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .card {
+            background-color: #111;
+            border: 1px solid #222;
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+        }
+        h2 {
+            color: #deff9a;
+            margin-bottom: 8px;
+            font-size: 24px;
+        }
+        .merchant-name {
+            color: #ffffff;
+            font-size: 18px;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        p {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        .amount-box {
+            background-color: #0d0d0d;
+            border: 1px solid #1a1a1a;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        .amount {
+            font-size: 38px;
+            font-weight: bold;
+            color: #fff;
+        }
+        .currency {
+            font-size: 16px;
+            color: #deff9a;
+            margin-right: 5px;
+        }
+        button {
+            background-color: #deff9a;
+            color: #000;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        button:disabled {
+            background-color: #333;
+            color: #777;
+            cursor: not-allowed;
+        }
+        #loader {
+            display: none;
+            margin-top: 15px;
+            color: #deff9a;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
+
     <div class="card">
         <h2>تأكيد الاشتراك</h2>
         <div id="merchantName" class="merchant-name">مرحباً بك</div>
+        <p>سيتم تحويلك الآن لبوابة الدفع الآمنة</p>
+        
+        <div class="amount-box">
+            <span class="amount" id="displayAmount">0</span>
+            <span class="currency">ر.س</span>
+        </div>
+
         <button id="payBtn" onclick="startPayment()">متابعة الدفع</button>
+        <div id="loader">⏳ جاري تجهيز الفاتورة، يرجى الانتظار...</div>
     </div>
 
     <script>
@@ -19,39 +112,77 @@
         const userId = urlParams.get('userId') || '';
         const userName = urlParams.get('userName') || '';
 
-        if (userName) localStorage.setItem('merchantName', userName);
-        document.getElementById('merchantName').innerText = `مرحباً بك، ${userName}`;
+        // حفظ الاسم في الذاكرة لتقرأه صفحة success.html
+        if (userName) {
+            localStorage.setItem('merchantName', userName);
+        }
+
+        const amount = (parseInt(branches, 10) * 69).toString();
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const displayElement = document.getElementById('displayAmount');
+            if (displayElement) {
+                displayElement.innerText = amount;
+            }
+
+            const nameElement = document.getElementById('merchantName');
+            if (nameElement && userName) {
+                nameElement.innerText = `مرحباً بك، ${userName}`;
+            }
+        });
 
         async function startPayment() {
             const btn = document.getElementById('payBtn');
+            const loader = document.getElementById('loader');
+            
             btn.disabled = true;
-            btn.innerText = "جاري تحويلك لبوابة الدفع...";
+            btn.innerText = "جاري تجهيز الفاتورة...";
+            loader.style.display = 'block';
 
             try {
-                // ⚠️ ضع رابط الدالة السحابية (Edge Function) الخاص بك هنا
-                const supabaseFunctionUrl = 'https://YOUR_PROJECT_REF.supabase.co/functions/v1/tap-payment';
+                const supabaseFunctionUrl = 'https://veykkaazqucjekhmwnek.supabase.co/functions/v1/tap-payment';
                 
                 const response = await fetch(supabaseFunctionUrl, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZleWtrYWF6cXVjamVraG13bmVrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3NTExNDgsImV4cCI6MjA5NDMyNzE0OH0.28s7JbWu9oqqcnRqfogsoBpc4F_RJfsBDhrFNNcQMVw'
+                    },
                     body: JSON.stringify({
-                        amount: branches * 69, // حسبناها بناء على الفروع
+                        amount: amount,
                         branches: branches,
                         userId: userId,
                         userName: userName
                     })
                 });
 
+                // التعديل هنا: صيد أخطاء الخادم (مثل 400 أو 500)
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`خطأ من الخادم (${response.status}): ${errorText}`);
+                }
+
                 const data = await response.json();
                 
                 if (data && data.transaction && data.transaction.url) {
-                    window.location.href = data.transaction.url; // التوجيه لصفحة بطاقة الصراف
+                    window.location.href = data.transaction.url;
+                } else if (data && data.error) {
+                    throw new Error(JSON.stringify(data.error));
                 } else {
-                    alert('خطأ في الاتصال بالبوابة.');
+                    throw new Error("استجابة غير متوقعة من الخادم: " + JSON.stringify(data));
                 }
             } catch (error) {
-                alert('فشل الاتصال بالخادم.');
+                // التعديل هنا: عرض الخطأ الفعلي بوضوح للمستخدم للتشخيص
+                alert('فشل الاتصال!\n\nالسبب التقني:\n' + error.message);
+                console.error("Fetch Error:", error);
+                resetButton(btn, loader);
             }
+        }
+
+        function resetButton(btn, loader) {
+            btn.disabled = false;
+            btn.innerText = "متابعة الدفع";
+            loader.style.display = 'none';
         }
     </script>
 </body>
