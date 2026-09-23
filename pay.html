@@ -1,12 +1,106 @@
-<script>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة الدفع - تطبيق قيم</title>
+    <style>
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background-color: #111;
+            border: 1px solid #222;
+            border-radius: 20px;
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        h2 {
+            color: #deff9a;
+            margin-bottom: 5px;
+            font-size: 24px;
+        }
+        p {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+        .amount-box {
+            background-color: #0d0d0d;
+            border: 1px solid #1a1a1a;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        .amount {
+            font-size: 36px;
+            font-weight: bold;
+            color: #fff;
+        }
+        .currency {
+            font-size: 16px;
+            color: #deff9a;
+            margin-right: 5px;
+        }
+        button {
+            background-color: #deff9a;
+            color: #000;
+            border: none;
+            border-radius: 12px;
+            padding: 15px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:disabled {
+            background-color: #444;
+            color: #888;
+            cursor: not-allowed;
+        }
+        #loader {
+            display: none;
+            margin-top: 15px;
+            color: #deff9a;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>تأكيد الاشتراك</h2>
+        <p>سيتم تحويلك الآن لبوابة الدفع الآمنة</p>
+        
+        <div class="amount-box">
+            <span class="amount" id="displayAmount">0</span>
+            <span class="currency">ر.س</span>
+        </div>
+
+        <button id="payBtn" onclick="startPayment()">متابعة الدفع</button>
+        <div id="loader">⏳ جاري تجهيز الفاتورة، يرجى الانتظار...</div>
+    </div>
+
+    <script>
         const urlParams = new URLSearchParams(window.location.search);
         const branches = urlParams.get('branches') || '1';
-        const userId = urlParams.get('userId') || ''; // التقاط معرف التاجر
+        const userId = urlParams.get('userId') || '';
         
-        // 🌟 حساب المبلغ تلقائياً بناءً على عدد الفروع المرسلة من التطبيق
+        // حساب المبلغ بناءً على عدد الفروع المحددة في التطبيق
         const amount = (parseInt(branches) * 69).toString(); 
 
-        // 🌟 الحل السحري: نأمر المتصفح بالانتظار حتى تكتمل الصفحة قبل تعديل النص
         document.addEventListener("DOMContentLoaded", () => {
             const displayElement = document.getElementById('displayAmount');
             if (displayElement) {
@@ -34,7 +128,7 @@
                     body: JSON.stringify({
                         amount: amount,
                         branches: branches,
-                        userId: userId // إرسال المعرف للدالة السحابية
+                        userId: userId
                     })
                 });
 
@@ -60,3 +154,5 @@
             loader.style.display = 'none';
         }
     </script>
+</body>
+</html>
