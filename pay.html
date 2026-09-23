@@ -31,6 +31,13 @@
             margin-bottom: 5px;
             font-size: 24px;
         }
+        /* 🌟 تنسيق اسم التاجر الجديد 🌟 */
+        .merchant-name {
+            color: #fff;
+            font-size: 18px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
         p {
             color: #888;
             font-size: 14px;
@@ -82,6 +89,8 @@
 
     <div class="card">
         <h2>تأكيد الاشتراك</h2>
+        <!-- 🌟 المكان الذي سيظهر فيه اسم التاجر 🌟 -->
+        <div id="merchantName" class="merchant-name">مرحباً بك</div>
         <p>سيتم تحويلك الآن لبوابة الدفع الآمنة</p>
         
         <div class="amount-box">
@@ -97,14 +106,20 @@
         const urlParams = new URLSearchParams(window.location.search);
         const branches = urlParams.get('branches') || '1';
         const userId = urlParams.get('userId') || '';
+        const userName = urlParams.get('userName') || ''; // 🌟 التقاط اسم التاجر
         
-        // حساب المبلغ بناءً على عدد الفروع المحددة في التطبيق
         const amount = (parseInt(branches) * 69).toString(); 
 
         document.addEventListener("DOMContentLoaded", () => {
             const displayElement = document.getElementById('displayAmount');
             if (displayElement) {
                 displayElement.innerText = amount;
+            }
+
+            // 🌟 طباعة اسم التاجر إذا كان موجوداً في الرابط 🌟
+            const nameElement = document.getElementById('merchantName');
+            if (nameElement && userName) {
+                nameElement.innerText = 'مرحباً بك، ' + userName;
             }
         });
 
