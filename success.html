@@ -3,188 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تم الدفع بنجاح - تطبيق سلس</title>
-    
-    <!-- مكتبة Supabase -->
+    <title>تم الدفع بنجاح</title>
+    <!-- استدعاء مكتبة Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #050505;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-        .success-container {
-            background-color: #111;
-            padding: 40px 30px;
-            border-radius: 20px;
-            width: 100%;
-            max-width: 450px;
-            border: 1px solid #222;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(222, 255, 154, 0.1);
-        }
-        .icon-box { font-size: 60px; margin-bottom: 20px; }
-        h2 { color: #deff9a; margin-bottom: 15px; }
-        
-        /* 🌟 تنسيق اسم التاجر */
-        .merchant-name {
-            color: #ffffff;
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 25px;
-            display: none;
-        }
-
-        p { color: #aaa; font-size: 14px; line-height: 22px; margin-bottom: 30px; }
-        .btn {
-            display: inline-block;
-            background-color: #deff9a;
-            color: #000;
-            padding: 15px 30px;
-            border-radius: 14px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 16px;
-            transition: 0.3s;
-        }
-        .btn:hover { opacity: 0.9; }
-        .loader {
-            border: 4px solid #222;
-            border-top: 4px solid #deff9a;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px auto;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        body { background-color: #050505; color: #fff; text-align: center; padding-top: 50px; font-family: sans-serif; }
+        .success-box { background: #111; padding: 40px; border-radius: 20px; border: 1px solid #deff9a; display: inline-block; }
+        h1 { color: #deff9a; }
+        a.button { display: inline-block; margin-top: 20px; padding: 15px 30px; background: #deff9a; color: #000; text-decoration: none; border-radius: 10px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="success-container">
-        <div class="icon-box" id="status-icon">⏳</div>
-        <div id="loader" class="loader"></div>
-        <h2 id="status-title">جاري معالجة الدفع...</h2>
-        
-        <!-- 🌟 المكان المخصص لظهور اسم التاجر -->
-        <div id="merchant-name" class="merchant-name"></div>
-        
-        <p id="status-text" style="display: block;">يرجى الانتظار، جاري التحقق من عملية الدفع وتحديث اشتراكك وفروعك...</p>
-        
-        <a href="salasnew://" id="return-btn" class="btn" style="display: none;">العودة لتطبيق سلس 🚀</a>
+    <div class="success-box">
+        <h1>✅ تم الدفع وتفعيل الاشتراك بنجاح</h1>
+        <h2 id="welcomeName"></h2>
+        <p>تمت إضافة الفروع إلى حسابك.</p>
+        <a href="salasapp://" class="button">العودة إلى التطبيق</a> <!-- استبدل salasapp بمسار تطبيقك -->
     </div>
 
     <script>
-        // إعدادات الاتصال بـ Supabase
-        const SUPABASE_URL = 'https://veykkaazqucjekhmwnek.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_as-J32udJVB95xbDLNUZUg_PlSC8Zlm';
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // 1. قراءة البيانات من الرابط
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('userId');
+        const branches = urlParams.get('branches');
+        const tapId = urlParams.get('tap_id'); // أضافتها Tap تلقائياً
 
-        async function verifyAndUpdatePayment() {
-            const urlParams = new URLSearchParams(window.location.search);
+        const savedName = localStorage.getItem('merchantName') || 'عميلنا العزيز';
+        document.getElementById('welcomeName').innerText = `شكراً لك ${savedName}`;
+
+        // 2. تحديث قاعدة البيانات في Supabase
+        if (userId && branches) {
+            // ⚠️ ضع بيانات مشروعك هنا
+            const SUPABASE_URL = 'https://YOUR_PROJECT_REF.supabase.co';
+            const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY';
             
-            const chargeId = urlParams.get('tap_id') || urlParams.get('id') || urlParams.get('charge_id');
-            const userId = urlParams.get('userId'); 
-            const branches = parseInt(urlParams.get('branches') || '1');
+            const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-            // 🌟 1. استخراج اسم التاجر من الرابط أو الذاكرة المؤقتة
-            let merchantName = urlParams.get('userName') || localStorage.getItem('merchantName') || '';
+            async function updateMerchantProfile() {
+                // تاريخ الانتهاء بعد سنة (365 يوم) من الآن
+                const expiryDate = new Date();
+                expiryDate.setDate(expiryDate.getDate() + 365);
 
-            const statusIcon = document.getElementById('status-icon');
-            const loader = document.getElementById('loader');
-            const statusTitle = document.getElementById('status-title');
-            const statusText = document.getElementById('status-text');
-            const merchantNameEl = document.getElementById('merchant-name');
-            const returnBtn = document.getElementById('return-btn');
+                const { data, error } = await supabase
+                    .from('profiles')
+                    .update({ 
+                        allowed_branches: parseInt(branches),
+                        subscription_end_date: expiryDate.toISOString()
+                    })
+                    .eq('id', userId);
 
-            if (chargeId || window.location.href.includes("success")) {
-                
-                statusIcon.innerHTML = "🎉";
-                loader.style.display = "none";
-                statusTitle.innerText = "تمت عملية الدفع بنجاح!";
-                
-                try {
-                    if (userId) {
-                        const endDate = new Date();
-                        endDate.setMonth(endDate.getMonth() + 1);
-                        const formattedEndDate = endDate.toISOString();
-
-                        // تحديث بيانات التاجر في قاعدة البيانات
-                        await supabaseClient
-                            .from('profiles')
-                            .update({
-                                can_add_branch: true,
-                                subscription_type: 'paid',
-                                subscription_end_date: formattedEndDate,
-                                allowed_branches: branches
-                            })
-                            .eq('id', userId);
-
-                        // 🌟 إذا لم يتوفر الاسم في الرابط أو الذاكرة، نجلبه مباشرة من Supabase
-                        if (!merchantName) {
-                            const { data: profile } = await supabaseClient
-                                .from('profiles')
-                                .select('full_name, business_name')
-                                .eq('id', userId)
-                                .single();
-                            if (profile) {
-                                merchantName = profile.full_name || profile.business_name || '';
-                            }
-                        }
-                    }
-                    
-                    // 🌟 عرض اسم التاجر بشكل ترحيبي
-                    if (merchantName) {
-                        merchantNameEl.innerText = "شكراً لك يا " + merchantName + " 🎉";
-                        merchantNameEl.style.display = "block";
-                    }
-
-                    // إخفاء نص التحميل وإظهار زر العودة للتطبيق
-                    statusText.style.display = "none";
-                    returnBtn.style.display = 'inline-block';
-                    
-                    returnBtn.onclick = (e) => {
-                        e.preventDefault();
-                        window.location.href = "salasnew://"; 
-                    };
-
-                } catch (err) {
-                    console.error("Database update error:", err);
-                    statusIcon.innerHTML = "🎉";
-                    statusTitle.innerText = "تمت عملية الدفع بنجاح!";
-                    
-                    if (merchantName) {
-                        merchantNameEl.innerText = "شكراً لك يا " + merchantName + " 🎉";
-                        merchantNameEl.style.display = "block";
-                    }
-
-                    statusText.style.display = "none";
-                    returnBtn.style.display = 'inline-block';
-                }
-            } else {
-                loader.style.display = "none";
-                statusIcon.innerHTML = "❌";
-                statusTitle.innerText = "عذراً!";
-                statusTitle.style.color = "#ff6b6b";
-                statusText.innerText = "لم نتمكن من التحقق من بيانات العملية. تأكد من إتمام الدفع أو حاول مرة أخرى.";
-                returnBtn.style.display = 'inline-block';
-                returnBtn.innerText = "العودة للتطبيق وإعادة المحاولة";
+                if (error) console.error("خطأ في تحديث قاعدة البيانات:", error);
+                else console.log("تم التفعيل بنجاح!");
             }
+
+            updateMerchantProfile();
         }
-
-        window.onload = verifyAndUpdatePayment;
     </script>
-
 </body>
 </html>
