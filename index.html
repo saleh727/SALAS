@@ -219,6 +219,9 @@
                 <a href="#" onclick="switchTab('privacy', 'سياسة الخصوصية')">
                     <i class="fa-solid fa-shield-halved"></i> سياسة الخصوصية
                 </a>
+                <a href="#" onclick="switchTab('privacy-en', 'Privacy Policy (English)')">
+                    <i class="fa-solid fa-language"></i> Privacy Policy (English)
+                </a>
                 <a href="#" onclick="switchTab('cfo', 'دليل الذكاء المالي')">
                     <i class="fa-solid fa-brain"></i> دليل الذكاء المالي
                 </a>
@@ -234,7 +237,7 @@
         <!-- ============================================== -->
         <div id="privacy" class="section-container active">
             <h1 class="page-title"><i class="fa-solid fa-file-contract"></i> سياسة الخصوصية والاستخدام</h1>
-            <p class="page-desc">نحن في تطبيق "سلس" نلتزم التزاماً كاملاً بحماية بياناتك التجارية والمالية. توضح هذه البنود كيفية تعاملنا مع بياناتك بشفافية تامة.</p>
+            <p class="page-desc">نحن في تطبيق "سلس" نلتزم التزاماً كاملاً بحماية بياناتك التجارية والمالية. توضح هذه البنود كيفية تعاملنا مع بياناتك بشفافية تامة.<br><span style="color:#deff9a;font-size:13px;">آخر تحديث: 27 أكتوبر 2026</span></p>
             
             <div class="grid-layout">
                 <div class="card">
@@ -254,16 +257,16 @@
                     <p>أنت (التاجر/المستخدم) تمتلك 100% من بياناتك المُدخلة. تطبيق سلس هو مجرد أداة لمعالجة وعرض هذه البيانات بشكل ذكي، ولا نملك أي حق في التصرف بها.</p>
                 </div>
                 <div class="card">
-                    <h3>5. عدم مشاركة البيانات مع أطراف ثالثة</h3>
-                    <p>نلتزم التزاماً قاطعاً بعدم بيع، تأجير، أو مشاركة بيانات مبيعاتك وأرباحك مع أي جهات إعلانية أو أطراف ثالثة تحت أي ظرف من الظروف.</p>
+                    <h3>5. عدم بيع البيانات أو مشاركتها للإعلانات</h3>
+                    <p>لا نبيع ولا نؤجر بيانات مبيعاتك وأرباحك، ولا نشاركها مع أي جهات إعلانية. نستخدم فقط مزوّدي خدمات تقنية ضروريين لتشغيل التطبيق (الاستضافة، الإشعارات، الاشتراكات، الذكاء الاصطناعي، تقارير الأعطال) وفق البنود أدناه، وبالقدر اللازم فقط.</p>
                 </div>
                 <div class="card">
                     <h3>6. دور الذكاء الاصطناعي والمحركات (BI)</h3>
-                    <p>التحليلات والتوصيات التي تظهر لك تتم برمجياً بشكل آلي (Automated) بواسطة خوارزميات النظام دون أي تدخل بشري في قراءة أرقامك أو فحصها.</p>
+                    <p>التحليلات والتوصيات تتم آلياً بواسطة خوارزميات النظام دون أي تدخل بشري في قراءة أرقامك. بعض الميزات الاختيارية (قراءة الفاتورة وخطة الإنقاذ) تستخدم مزوّد ذكاء اصطناعي خارجي كما هو موضح في البندين 10 و11.</p>
                 </div>
                 <div class="card">
                     <h3>7. صلاحيات الوصول في التطبيق</h3>
-                    <p>قد يطلب التطبيق صلاحيات (مثل الكاميرا أو مكتبة الصور) فقط لتسهيل مهامك (مثل مسح الباركود أو رفع إيصالات المشتريات)، ولا يتم استخدامها لأي غرض آخر.</p>
+                    <p>يطلب التطبيق صلاحيات الكاميرا ومكتبة الصور فقط لتصوير الفواتير وتقارير المبيعات وإرفاقها، وصلاحية الإشعارات لإرسال التنبيهات. لا تُستخدم لأي غرض آخر.</p>
                 </div>
                 <div class="card">
                     <h3>8. حذف وتعديل البيانات (حق النسيان)</h3>
@@ -271,17 +274,120 @@
                 </div>
                 <div class="card">
                     <h3>9. الاحتفاظ بالبيانات</h3>
-                    <p>يتم الاحتفاظ ببياناتك طالما أن حسابك نشط لتتمكن من استخراج تقارير المقارنة السنوية والشهرية. يمكنك طلب مسح حسابك بالكامل بالتواصل مع الدعم.</p>
+                    <p>نحتفظ ببياناتك طالما أن حسابك نشط لتتمكن من استخراج تقارير المقارنة. يمكنك حذف حسابك وجميع بياناتك نهائياً في أي وقت من داخل التطبيق: الإعدادات ← حذف الحساب.</p>
                 </div>
                 <div class="card">
-                    <h3>10. تحديثات سياسة الخصوصية</h3>
+                    <h3>10. قراءة الفواتير بالذكاء الاصطناعي</h3>
+                    <p>عند استخدام ميزة "قراءة الفاتورة تلقائياً"، تُرسل صورة الفاتورة إلى مزوّد الذكاء الاصطناعي (Anthropic) لاستخراج المبلغ واسم المورد والضريبة فقط. لا تُستخدم الصور لتدريب نماذج الذكاء الاصطناعي، ولا تُرسل معها بيانات تعريفية عنك.</p>
+                </div>
+                <div class="card">
+                    <h3>11. خطة الإنقاذ بالذكاء الاصطناعي</h3>
+                    <p>عند طلب "خطة إنقاذ"، تُرسل أرقام مالية مجمّعة فقط (مثل إجمالي المبيعات والمصروفات ونسبها) إلى مزوّد الذكاء الاصطناعي (Anthropic) لتوليد التوصيات. لا يُرسل اسمك أو بيانات عملائك أو أي معلومات شخصية.</p>
+                </div>
+                <div class="card">
+                    <h3>12. الإشعارات</h3>
+                    <p>نستخدم خدمة إشعارات Expo لإرسال تنبيهات التطبيق (مثل تذكير تسجيل المبيعات والملخص الأسبوعي). يُحفظ معرّف الإشعارات الخاص بجهازك لهذا الغرض فقط.</p>
+                </div>
+                <div class="card">
+                    <h3>13. الاشتراكات والمدفوعات</h3>
+                    <p>تتم المدفوعات عبر متجر أبل أو قوقل بلاي، ونستخدم خدمة RevenueCat للتحقق من حالة الاشتراك. لا نستقبل ولا نخزّن أي بيانات بطاقات بنكية.</p>
+                </div>
+                <div class="card">
+                    <h3>14. تقارير الأعطال</h3>
+                    <p>نستخدم خدمة Sentry لاستقبال تقارير الأعطال التقنية فقط (نوع الخطأ ومكانه في التطبيق) بهدف إصلاحها. لا تتضمن هذه التقارير بياناتك المالية أو معلوماتك الشخصية.</p>
+                </div>
+                <div class="card">
+                    <h3>15. التخزين والأمان</h3>
+                    <p>تُخزّن البيانات على خوادم Supabase مع صلاحيات وصول تمنع أي تاجر من الاطلاع على بيانات غيره. صور الفواتير خاصة ولا يمكن فتحها إلا لصاحب الفرع.</p>
+                </div>
+                <div class="card">
+                    <h3>16. تحديثات سياسة الخصوصية</h3>
                     <p>قد نقوم بتحديث هذه السياسة بشكل دوري لمواكبة التطورات التقنية والتنظيمية. سيتم إشعار جميع المستخدمين بأي تغييرات جوهرية تطرأ على هذه البنود.</p>
                 </div>
                 <div class="card">
-                    <h3>11. التواصل والدعم الفني</h3>
+                    <h3>17. التواصل والدعم الفني</h3>
                     <p>إذا كان لديك أي استفسار يتعلق بخصوصية بياناتك أو كيفية معالجتها داخل تطبيق سلس، يمكنك التواصل مع فريق الدعم الفني الخاص بنا في أي وقت وسنكون سعداء بخدمتك.</p>
                 </div>
             </div>
+        </div>
+
+
+        <!-- ============================================== -->
+        <!-- Privacy Policy (English) -->
+        <!-- ============================================== -->
+        <div id="privacy-en" class="section-container" dir="ltr" style="text-align:left;">
+            <h1 class="page-title"><i class="fa-solid fa-file-contract"></i> Privacy Policy</h1>
+            <p class="page-desc">Salas is committed to protecting your business and financial data. This policy explains how we handle it.<br><span style="color:#deff9a;font-size:13px;">Last updated: October 27, 2026</span></p>
+            <div class="grid-layout">
+                <div class="card">
+                    <h3>1. Data we collect</h3>
+                    <p>Only the data you enter: sales, purchases, fixed costs and branch details, plus invoice photos you choose to attach.</p>
+                </div>
+                <div class="card">
+                    <h3>2. How we use it</h3>
+                    <p>Your data is used only inside the app to build your dashboards, reports and financial insights.</p>
+                </div>
+                <div class="card">
+                    <h3>3. Security</h3>
+                    <p>Data is encrypted in transit and protected by access rules so no other merchant can see your data.</p>
+                </div>
+                <div class="card">
+                    <h3>4. You own your data</h3>
+                    <p>You own 100% of the data you enter. Salas only processes and displays it.</p>
+                </div>
+                <div class="card">
+                    <h3>5. No selling, no ads</h3>
+                    <p>We never sell or rent your data or share it with advertisers. We use only the service providers needed to run the app, as described below.</p>
+                </div>
+                <div class="card">
+                    <h3>6. Automated analysis</h3>
+                    <p>Insights are generated automatically, with no human reading your numbers. Optional AI features use an external AI provider (items 10 and 11).</p>
+                </div>
+                <div class="card">
+                    <h3>7. App permissions</h3>
+                    <p>Camera and photo access are used only to attach invoices and sales reports; notifications only for app alerts.</p>
+                </div>
+                <div class="card">
+                    <h3>8. Edit and delete</h3>
+                    <p>You can edit or delete any entry or branch at any time. Every change is logged for your records.</p>
+                </div>
+                <div class="card">
+                    <h3>9. Retention and account deletion</h3>
+                    <p>We keep your data while your account is active. Delete your account and all data anytime: Settings &rarr; Delete account.</p>
+                </div>
+                <div class="card">
+                    <h3>10. AI invoice reading</h3>
+                    <p>When you use "Read invoice automatically", the invoice photo is sent to our AI provider (Anthropic) only to extract the amount, supplier and VAT. Photos are not used to train AI models.</p>
+                </div>
+                <div class="card">
+                    <h3>11. AI rescue plan</h3>
+                    <p>Only aggregated figures (totals and ratios) are sent to the AI provider (Anthropic) to generate recommendations. No name, customer data or personal information is sent.</p>
+                </div>
+                <div class="card">
+                    <h3>12. Notifications</h3>
+                    <p>We use Expo push notifications for app alerts. Your device notification token is stored only for this purpose.</p>
+                </div>
+                <div class="card">
+                    <h3>13. Subscriptions and payments</h3>
+                    <p>Payments are processed by the Apple App Store or Google Play. RevenueCat verifies subscription status. We never receive card details.</p>
+                </div>
+                <div class="card">
+                    <h3>14. Crash reports</h3>
+                    <p>We use Sentry to receive technical crash reports (error type and location) to fix issues. They contain no financial or personal data.</p>
+                </div>
+                <div class="card">
+                    <h3>15. Storage</h3>
+                    <p>Data is stored on Supabase servers. Invoice photos are private and visible only to the branch owner.</p>
+                </div>
+                <div class="card">
+                    <h3>16. Policy updates</h3>
+                    <p>We may update this policy and will notify users of any material changes.</p>
+                </div>
+                <div class="card">
+                    <h3>17. Contact</h3>
+                    <p>Questions about your privacy? Contact our support team from the app (Settings &rarr; Help &amp; support).</p>
+                </div>
+                </div>
         </div>
 
         <!-- ============================================== -->
@@ -408,6 +514,9 @@
             sections.forEach(section => section.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
         }
+
+        // index.html#en يفتح النسخة الإنجليزية مباشرة
+        if (location.hash === '#en') switchTab('privacy-en', 'Privacy Policy (English)');
     </script>
 </body>
 </html>
